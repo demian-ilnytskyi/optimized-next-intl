@@ -1,7 +1,7 @@
 export const isDarkCookieKey = '__is_dark_key__';
 
 export default function DeletectThemeScript({ isDark }: { isDark: boolean | null }): Component | null {
-    if (isDark === undefined) {
+    if (isDark !== undefined) {
         return null;
     } else {
         return <script

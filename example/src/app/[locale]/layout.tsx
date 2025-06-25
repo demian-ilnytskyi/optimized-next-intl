@@ -35,9 +35,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): Promise<Component> {
-  const { locale, isDark, htmlClass } = await getCurrentTheme();
+  const { locale, isDark, htmlParam } = await getCurrentTheme();
 
-  return <html suppressHydrationWarning={!KTextConstants.isDev || isDark !== undefined} lang={locale} {...htmlClass} >
+  return <html  {...htmlParam} >
     <head>
       <meta httpEquiv="Content-Language" content={locale} />
       <DeletectThemeScript isDark={isDark} />

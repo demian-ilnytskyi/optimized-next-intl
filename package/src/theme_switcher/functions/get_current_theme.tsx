@@ -5,13 +5,22 @@ import { isDarkCookieKey } from "./deletect_theme_script";
 import { localeCookieName } from "../../config/middleware";
 import config from "../../config/intl_config";
 
-export default async function getCurrentTheme(): Promise<{ isDark: boolean | null, locale: string, htmlClass?: { className: string } }> {
+interface HtmlParamProps {
+    className?: string;
+    suppressHydrationWarning?: boolean;
+    lang: string;
+}
+
+export default async function getCurrentTheme(): Promise<{ isDark: boolean | null, locale: string, htmlParam?: HtmlParamProps }> {
     const cookie = await cookies();
     const isDarkMode = cookie.get(isDarkCookieKey)?.value;
     const isDark = getCookieBooleanValue(isDarkMode);
     const locale = (cookie.get(localeCookieName)?.value as Language) ?? config.defaultLocale;
-    const htmlClass = isDark === true ? { className: 'dark' } : undefined;
-    return { isDark, locale, htmlClass };
+    const htmlParam: HtmlParamProps = { suppressHydrationWarning: !isDarkMode, lang: locale };
+    if (isDark === true) {
+        htmlParam.className = 'dark';
+    }
+    return { isDark, locale, htmlParam };
 }
 
 function getCookieBooleanValue(cookieValue: string | undefined): boolean | null {
