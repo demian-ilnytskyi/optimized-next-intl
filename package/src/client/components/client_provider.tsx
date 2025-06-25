@@ -1,20 +1,23 @@
 "use client";
 
+import type { TranslationObject, TranslatorReturnType } from "../../types/types";
+import { setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
 import { createContext, useContext, useMemo } from "react";
-import type { TranslatorReturnType, TranslationObject } from "../../server/functions/server";
-import { getTranslationsImpl, setLocale } from "../../server/functions/server";
+import { getTranslationsImpl } from "../../general/general_functions";
 
 interface LocaleContextType {
-    locale: string;
+    language: string;
     messages: TranslationObject;
     //   toggleLocale: () => void;
 }
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
-export default function LocationzationClientProvider({ locale, messages, children }: { locale: string, messages: TranslationObject, children: React.ReactNode }): Component {
-    setLocale(locale);
-    return <LocaleContext.Provider value={{ locale, messages }}>
+export default function LocationzationClientProvider({ language, messages, children }: { language: string, messages: TranslationObject, children: React.ReactNode }): Component {
+    setLocaleCache(language);
+    setMessageForLocaleCache(language, messages);
+
+    return <LocaleContext.Provider value={{ language, messages }}>
         {children}
     </LocaleContext.Provider>;
 }
@@ -24,7 +27,7 @@ export function useLocale(): string {
     if (context === undefined) {
         throw new Error('useLocale must be used within a LocaleContext');
     }
-    return context.locale;
+    return context.language;
 }
 
 export function useTranslations(namespace: string): TranslatorReturnType {
@@ -33,10 +36,10 @@ export function useTranslations(namespace: string): TranslatorReturnType {
         throw new Error('useTranslations must be used within a LocaleContext');
     }
 
-    const { locale, messages } = context;
+    const { language, messages } = context;
 
     return useMemo(
-        () => getTranslationsImpl(locale, messages, namespace),
-        [locale, messages, namespace]
+        () => getTranslationsImpl(language, messages, namespace),
+        [language, messages, namespace]
     );
 }

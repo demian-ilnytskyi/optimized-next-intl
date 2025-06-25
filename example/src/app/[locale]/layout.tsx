@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { setPageLocale, setPageLocaleAsync } from '@/shared/constants/variables/locale_helper';
 import NavigationBar from "@/shared/components/nav_bar/nav_bar";
 import { cn } from "@/lib/utils";
 import metadataHelper from "@/shared/helpers/metadata_helper";
@@ -15,7 +14,7 @@ import LocationzationProvider from "optimized-next-intl/src/server/components/se
 export async function generateMetadata({ params }: {
   params: Promise<{ locale: Language }>;
 }): Promise<Metadata> {
-  const locale = await setPageLocaleAsync(params);
+  const { locale } = await params;
   const t = await getTranslations('Metadata.Main', locale);
 
   return {
@@ -42,7 +41,6 @@ export default async function RootLayout({
   const isDarkMode = cookie.get(CookieKey.isDarkCookieKey)?.value;
   const isDark = getCookieBooleanValue(isDarkMode);
   const locale = (cookie.get(localeCookieName)?.value as Language) ?? KTextConstants.defaultLocale;
-  setPageLocale({ locale });
   const htmlClass = (isDark === true && { className: 'dark' });
 
   // const nonce = (await headers()).get('x-nonce') ?? undefined;
@@ -53,7 +51,7 @@ export default async function RootLayout({
     </head>
     <body
       className={cn(`bg-white dark:bg-gray-900`)}>
-      <LocationzationProvider locale={locale} >
+      <LocationzationProvider language={locale} >
         <div className="flex flex-col min-h-screen mx-4 lg:mx-24 tablet:mx-8 self-center">
           <NavigationBar isDark={isDark ?? undefined} />
           {children}

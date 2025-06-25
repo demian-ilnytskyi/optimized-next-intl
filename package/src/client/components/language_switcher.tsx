@@ -8,21 +8,20 @@ import {
 } from 'react';
 import { useRouter } from "next/navigation";
 import config from '../../config/intl_config';
-import { setLocale } from '../../server/functions/server';
 import usePathname from '../hooks/usePathName';
 import changeLanguage from '../../server/functions/change_language';
 
 
 
 type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> &
-    Omit<LinkProps, 'locale' | 'href' | 'prefetch'>;
+    Omit<LinkProps, 'locale' | 'href' | 'prefetch' | 'onClick'>;
 
 type Props = NextLinkProps & {
     nextLocale: string;
 };
 
 function LanguageSwitcherComponent(
-    { nextLocale, ...rest }: Props,
+    { nextLocale, scroll, ...rest }: Props,
     ref: Ref<HTMLAnchorElement>
 ) {
     const router = useRouter();
@@ -35,13 +34,13 @@ function LanguageSwitcherComponent(
     async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
         await changeLanguage(nextLocale);
-        setLocale(nextLocale);
-        router.push(href);
+        router.push(href, { scroll: scroll });
     };
 
     return <LinkComponent
         ref={ref}
         hrefLang={nextLocale}
+        scroll={scroll}
         {...rest}
         href={href}
         onClick={(e) => handleClick(e)}

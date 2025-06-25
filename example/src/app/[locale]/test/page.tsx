@@ -1,17 +1,13 @@
-import { setPageLocaleAsync } from "@/shared/constants/variables/locale_helper";
-import { getTranslations } from "optimized-next-intl/src/server/functions/server";
+"use client";
 
-export default async function Home({
-    params
-}: {
-    params: Promise<{ locale: Language }>;
-}): Promise<Component> {
-    await setPageLocaleAsync(params);
+import { useTranslations } from "optimized-next-intl/src/client/components/client_provider";
 
-    const t = await getTranslations('HomePage');
+
+export default function Home(): Component {
+    const t = useTranslations('HomePage');
     const list: string[] = t('list');
 
-    return <main className="flex-1 flex flex-col">
+    return <main className="flex-1 flex flex-col mt-5">
         <ul>
             {list.map((item) => <li key={item}>{item}</li>)}
         </ul>

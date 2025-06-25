@@ -1,11 +1,18 @@
+import { setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
 import LocationzationClientProvider from "../../client/components/client_provider";
-import { getLocale, loadMessagesForLocale, type TranslationObject } from "../functions/server";
+import { getMessage } from "../functions/server";
+import type { TranslationObject } from "../../types/types";
 
-export default async function LocationzationProvider({ locale, messages, children }: { locale?: string, messages?: TranslationObject, children: React.ReactNode }): Promise<Component> {
-    const language = locale ?? await getLocale();
-    const messagesValue = messages ?? await loadMessagesForLocale(language);
+export default async function LocationzationProvider({ language, messages, children }: { language: string, messages?: TranslationObject, children: React.ReactNode }): Promise<Component> {
+    if (language) {
+        setLocaleCache(language);
+    }
+    if (messages) {
+        setMessageForLocaleCache(language, messages);
+    }
+    const messagesValue = messages ?? await getMessage(language);
 
-    return <LocationzationClientProvider locale={language} messages={messagesValue}>
+    return <LocationzationClientProvider language={language} messages={messagesValue}>
         {children}
     </LocationzationClientProvider>
 }

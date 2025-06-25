@@ -1,5 +1,5 @@
 import * as middleware from "./src/config/middleware";
-import * as intlConfig from "./src/config/intl_config";
+import { setIntlConfig } from "./src/config/intl_config";
 import * as serverProvider from "./src/server/components/server_provider";
 import * as server from "./src/server/functions/server";
 import changeLanguage from "./src/server/functions/change_language";
@@ -9,7 +9,7 @@ import usePathname from "./src/client/hooks/usePathName";
 
 export {
     middleware,
-    intlConfig,
+    setIntlConfig,
     server,
     serverProvider,
     changeLanguage,

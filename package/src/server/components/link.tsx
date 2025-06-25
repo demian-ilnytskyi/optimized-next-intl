@@ -6,8 +6,8 @@ import {
 } from 'react';
 import type { UrlObject } from 'url';
 import { format } from 'url';
-import { getLagnuageCustom } from '../functions/server';
 import config from '../../config/intl_config';
+import { getLocaleCache } from '../../general/cache_variables';
 
 type Url = string | UrlObject;
 
@@ -21,9 +21,9 @@ function CustomLinkFunction(
     { href, prefetch, ...rest }: Props,
     ref: Ref<HTMLAnchorElement>
 ) {
-    const localeValue = getLagnuageCustom();
+    const localeValue = getLocaleCache();
 
-    const needsLangPath = localeValue !== config.defaultLocale || localeValue;
+    const needsLangPath = localeValue !== config.defaultLocale || !localeValue;
 
     let pathnames: Url;
 

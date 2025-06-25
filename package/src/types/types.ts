@@ -137,3 +137,13 @@ export interface CookieAttributes {
      */
     secure?: boolean | undefined;
 };
+
+export type TranslationEntry = string | TranslationObject;
+export interface TranslationObject {
+    [key: string]: TranslationEntry;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ReturnType = any
+
+export type TranslatorReturnType = (key: string) => ReturnType;
