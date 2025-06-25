@@ -1,15 +1,16 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import KIcons from "@/shared/constants/components/icons";
-import CookieKey from "@/shared/constants/variables/cookie_key";
 import { useEffect, useState } from "react";
+import { isDarkCookieKey } from "../functions/deletect_theme_script";
+import { cn } from "../../lib/utils";
+import { Moon, Sun } from "./icons";
 
-export default function ThemeSwticher({ isDark, className, lightText, darkText }: {
+
+export default function ThemeSwticher({ isDark, className, lightLabelText, darkLabelText }: {
     className?: string;
     isDark?: boolean;
-    lightText: string;
-    darkText: string;
+    lightLabelText: string;
+    darkLabelText: string;
 }): Component {
     const [isDarkMode, setDarkMode] = useState(isDark ?? false);
 
@@ -27,13 +28,13 @@ export default function ThemeSwticher({ isDark, className, lightText, darkText }
             htmlElement.classList.add('dark');
         }
         setDarkMode(!isDarkMode);
-        document.cookie = `${CookieKey.isDarkCookieKey}=${!isDarkMode}; path=/; max-age=31536000;` +
+        document.cookie = `${isDarkCookieKey}=${!isDarkMode}; path=/; max-age=31536000;` +
             ` SameSite=Lax HttpOnly; ${process.env.NODE_ENV === 'production' ? "+ 'Secure;" : ''}`;
     }
 
     return <button
         onClick={changeTheme}
-        aria-label={isDarkMode ? lightText : darkText}
+        aria-label={isDarkMode ? lightLabelText : darkLabelText}
         className={cn(
             "relative flex items-center justify-center", // Base flex container for centering content
             "h-11.5 w-11.5 rounded-full", // Fixed size and rounded shape
@@ -44,7 +45,7 @@ export default function ThemeSwticher({ isDark, className, lightText, darkText }
             "dark:from-gray-700 dark:to-gray-900 dark:text-yellow-300 dark:shadow-gray-900/50 dark:ring-yellow-500", // Dark mode styles
             className, // Custom classes passed via props
         )}>
-        <KIcons.sun
+        <Sun
             className={cn(
                 "absolute transition-transform duration-500 ease-in-out",
                 "rotate-0 scale-100 opacity-100 cursor-pointer", // Default (light mode) state
@@ -52,7 +53,7 @@ export default function ThemeSwticher({ isDark, className, lightText, darkText }
             )}
         />
         {/* Moon Icon for Dark Mode */}
-        <KIcons.moon
+        <Moon
             className={cn(
                 "absolute transition-transform duration-500 ease-in-out",
                 "-rotate-90 scale-0 opacity-0 cursor-pointer", // Default (light mode) state

@@ -2,13 +2,11 @@ import type { Metadata } from "next";
 import NavigationBar from "@/shared/components/nav_bar/nav_bar";
 import { cn } from "@/lib/utils";
 import metadataHelper from "@/shared/helpers/metadata_helper";
-import DeletectThemeScript from "@/shared/components/theme_switcher/deletect_theme_script";
-import { cookies } from "next/headers";
 import KTextConstants from "@/shared/constants/variables/text_constants";
-import CookieKey, { getCookieBooleanValue } from "@/shared/constants/variables/cookie_key";
 import { getTranslations } from "optimized-next-intl/src/server/functions/server";
-import { localeCookieName } from "optimized-next-intl/src/config/middleware";
 import LocationzationProvider from "optimized-next-intl/src/server/components/server_provider";
+import { getCurrentTheme } from "optimized-next-intl";
+import DeletectThemeScript from "optimized-next-intl/src/theme_switcher/functions/deletect_theme_script";
 
 
 export async function generateMetadata({ params }: {
@@ -37,17 +35,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): Promise<Component> {
-  const cookie = await cookies();
-  const isDarkMode = cookie.get(CookieKey.isDarkCookieKey)?.value;
-  const isDark = getCookieBooleanValue(isDarkMode);
-  const locale = (cookie.get(localeCookieName)?.value as Language) ?? KTextConstants.defaultLocale;
-  const htmlClass = (isDark === true && { className: 'dark' });
+  const { locale, isDark, htmlClass } = await getCurrentTheme();
 
-  // const nonce = (await headers()).get('x-nonce') ?? undefined;
-  return <html suppressHydrationWarning={!KTextConstants.isDev || !isDarkMode} lang={locale} {...htmlClass} >
+  return <html suppressHydrationWarning={!KTextConstants.isDev || isDark !== undefined} lang={locale} {...htmlClass} >
     <head>
       <meta httpEquiv="Content-Language" content={locale} />
-      {!isDarkMode && <DeletectThemeScript />}
+      <DeletectThemeScript isDark={isDark} />
     </head>
     <body
       className={cn(`bg-white dark:bg-gray-900`)}>

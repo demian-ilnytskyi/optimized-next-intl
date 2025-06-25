@@ -3,9 +3,7 @@ import intlMiddleware from 'optimized-next-intl/src/config/middleware';
 
 // This middleware function runs for every incoming request
 
-export async function middleware(request: NextRequest): Promise<NextResponse<unknown>> {
-    return intlMiddleware(request)
-}
+export const middleware = intlMiddleware;
 
 // Configuration for the middleware
 export const config = {
