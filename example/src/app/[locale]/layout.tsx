@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: {
   params: Promise<{ locale: Language }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations('Metadata.Main', locale);
+  const t = await getTranslations('Metadata.Main', locale.includes('.') ? undefined : locale);
 
   return {
     ...metadataHelper({
