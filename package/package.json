@@ -3,6 +3,78 @@
   "version": "0.1.0",
   "description": "Optimized Next Intl Package Special for App Router and Cloudflare",
   "main": "index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./middleware": {
+      "types": "./dist/src/config/middleware.d.ts",
+      "import": "./dist/src/config/middleware.js",
+      "require": "./dist/src/config/middleware.cjs"
+    },
+    "./setIntlConfig": {
+      "types": "./dist/src/config/intl_config.d.ts",
+      "import": "./dist/src/config/intl_config.js",
+      "require": "./dist/src/config/intl_config.cjs"
+    },
+    "./server": {
+      "types": "./dist/src/server/functions/server.d.ts",
+      "import": "./dist/src/server/functions/server.js",
+      "require": "./dist/src/server/functions/server.cjs"
+    },
+    "./serverProvider": {
+      "types": "./dist/src/server/components/server_provider.d.ts",
+      "import": "./dist/src/server/components/server_provider.js",
+      "require": "./dist/src/server/components/server_provider.cjs"
+    },
+    "./changeLanguage": {
+      "types": "./dist/src/server/functions/change_language.d.ts",
+      "import": "./dist/src/server/functions/change_language.js",
+      "require": "./dist/src/server/functions/change_language.cjs"
+    },
+    "./Link": {
+      "types": "./dist/src/server/components/link.d.ts",
+      "import": "./dist/src/server/components/link.js",
+      "require": "./dist/src/server/components/link.cjs"
+    },
+    "./LanguageSwitcher": {
+      "types": "./dist/src/client/components/language_switcher.d.ts",
+      "import": "./dist/src/client/components/language_switcher.js",
+      "require": "./dist/src/client/components/language_switcher.cjs"
+    },
+    "./usePathname": {
+      "types": "./dist/src/client/hooks/usePathName.d.ts",
+      "import": "./dist/src/client/hooks/usePathName.js",
+      "require": "./dist/src/client/hooks/usePathName.cjs"
+    },
+    "./metadata": {
+      "types": "./dist/src/general/metadata.d.ts",
+      "import": "./dist/src/general/metadata.js",
+      "require": "./dist/src/general/metadata.cjs"
+    },
+    "./getCurrentTheme": {
+      "types": "./dist/src/theme_switcher/functions/get_current_theme.d.ts",
+      "import": "./dist/src/theme_switcher/functions/get_current_theme.js",
+      "require": "./dist/src/theme_switcher/functions/get_current_theme.cjs"
+    },
+    "./detectThemeScript": {
+      "types": "./dist/src/theme_switcher/functions/detect_theme_script.d.ts",
+      "import": "./dist/src/theme_switcher/functions/detect_theme_script.js",
+      "require": "./dist/src/theme_switcher/functions/detect_theme_script.cjs"
+    },
+    "./ThemeSwitcher": {
+      "types": "./dist/src/theme_switcher/components/theme_switcher.d.ts",
+      "import": "./dist/src/theme_switcher/components/theme_switcher.js",
+      "require": "./dist/src/theme_switcher/components/theme_switcher.cjs"
+    },
+    "./cn": {
+      "types": "./dist/src/lib/utils.d.ts",
+      "import": "./dist/src/lib/utils.js",
+      "require": "./dist/src/lib/utils.cjs"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
