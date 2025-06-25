@@ -1,0 +1,24 @@
+{
+    "name": "Тестове ім'я",
+    "id": "/",
+    "short_name": "Тест",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "description": "Тестовий Опис",
+    "orientation": "portrait-primary",
+    "lang": "uk",
+    "dir": "ltr",
+    "categories": [
+        "Тест"
+    ],
+    "scope": "/",
+    "icons": [
+        {
+            "src": "image.path",
+            "sizes": "image size(32x32)",
+            "type": "image type(image/png)"
+        }
+    ]
+}

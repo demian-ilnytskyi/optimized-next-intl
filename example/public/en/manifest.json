@@ -1,0 +1,24 @@
+{
+    "name": "Test name",
+    "id": "/",
+    "short_name": "Test",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "description": "Test Description",
+    "orientation": "portrait-primary",
+    "lang": "en",
+    "dir": "ltr",
+    "categories": [
+        "Test"
+    ],
+    "scope": "/",
+    "icons": [
+        {
+            "src": "image.path",
+            "sizes": "image size(32x32)",
+            "type": "image type(image/png)"
+        }
+    ]
+}

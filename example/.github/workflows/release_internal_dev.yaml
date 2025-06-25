@@ -1,0 +1,20 @@
+name: DEVELOPMENT build
+
+on:
+  workflow_dispatch:
+    # inputs:
+    #   new_engine:
+    #     description: 'Enable new engine (true/false)'
+    #     required: false
+
+concurrency:
+  group: dev-$
+  cancel-in-progress: true
+
+jobs:
+  web_build:
+    uses: DemienIlnutskiy/workflows/.github/workflows/next_js_build.yml@main
+    secrets: inherit
+    with:
+      FLAVOUR: "development"
+      # new_engine: ${{ github.event.inputs.new_engine }}

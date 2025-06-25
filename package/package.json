@@ -1,0 +1,73 @@
+{
+  "name": "optimized-next-intl",
+  "version": "0.1.0",
+  "description": "Optimized Next Intl Package Special for App Router and Cloudflare",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemienIlnutskiy/optimized-next-intl.git"
+  },
+  "keywords": [
+    "nextjs",
+    "i18n",
+    "internationalization",
+    "localization",
+    "multilingual",
+    "translation",
+    "language",
+    "optimized",
+    "performance",
+    "bundle-size",
+    "fast",
+    "efficient",
+    "app-router",
+    "server-components",
+    "ssr",
+    "ssg",
+    "tree-shaking",
+    "dynamic-imports",
+    "react",
+    "next-intl",
+    "messages",
+    "formatting",
+    "icu"
+  ],
+  "files": [
+    "server.d.ts"
+  ],
+  "author": "Demian Ilnutskyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DemienIlnutskiy/optimized-next-intl/issues"
+  },
+  "homepage": "https://github.com/DemienIlnutskiy/optimized-next-intl#readme",
+  "peerDependencies": {
+    "next": "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript-eslint": "^8.33.1",
+    "eslint": "^9.28.0",
+    "eslint-config-next": "15.3.3",
+    "eslint-config-prettier": "^10.1.2",
+    "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.27.0",
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.5.3",
+    "vitest": "^3.0.8"
+  }
+}
