@@ -15,7 +15,7 @@ export default async function getCurrentTheme(): Promise<{ isDark: boolean | nul
     const cookie = await cookies();
     const isDarkMode = cookie.get(isDarkCookieKey)?.value;
     const isDark = getCookieBooleanValue(isDarkMode);
-    const locale = (cookie.get(localeCookieName)?.value as Language) ?? config.defaultLocale;
+    const locale = (cookie.get(localeCookieName)?.value as string) ?? config.defaultLocale;
     const htmlParam: HtmlParamProps = { suppressHydrationWarning: !isDarkMode, lang: locale };
     if (isDark === true) {
         htmlParam.className = 'dark';

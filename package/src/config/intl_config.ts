@@ -1,4 +1,4 @@
-import intlConfig from '../../../example/src/l18n/intl_config'// /src/l18n/intl_config';
+import intlConfig from '../../../../src/l18n/intl_config'// /src/l18n/intl_config';
 import type { LocalePrefixMode, Locales, RoutingConfig } from '../types/types';
 
 export function setIntlConfig<
