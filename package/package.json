@@ -35,9 +35,6 @@
     "formatting",
     "icu"
   ],
-  "files": [
-    "server.d.ts"
-  ],
   "author": "Demian Ilnutskyi",
   "license": "MIT",
   "bugs": {
