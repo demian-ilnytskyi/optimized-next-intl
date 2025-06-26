@@ -37,7 +37,7 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
         aria-label={isDarkMode ? lightLabelText : darkLabelText}
         className={cn(
             "relative flex items-center justify-center", // Base flex container for centering content
-            "w-[2.87rem] h-[2.87rem] rounded-full", // Fixed size and rounded shape
+            "p-2.5 rounded-full", // Fixed size and rounded shape
             "cursor-pointer overflow-hidden", // Hide overflow for potential animations, pointer cursor
             "transition-colors duration-300 ease-in-out", // Smooth transition for background color
             "outline-none ring-2 ring-offset-2 ring-opacity-75", // Focus ring for accessibility
@@ -49,7 +49,8 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
             className={cn(
                 "absolute transition-transform duration-500 ease-in-out",
                 "rotate-0 scale-100 opacity-100 cursor-pointer", // Default (light mode) state
-                "dark:rotate-90 dark:scale-0 dark:opacity-0" // Dark mode state
+                "dark:rotate-90 dark:scale-0 dark:opacity-0", // Dark mode state
+                "dark:w-0 dark:h-0 h-max w-max",
             )}
         />
         {/* Moon Icon for Dark Mode */}
@@ -58,6 +59,7 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
                 "absolute transition-transform duration-500 ease-in-out",
                 "-rotate-90 scale-0 opacity-0 cursor-pointer", // Default (light mode) state
                 "dark:rotate-0 dark:scale-100 dark:opacity-100", // Dark mode state
+                "w-0 h-0 dark:h-max dark:w-max",
             )}
         />
     </button>;
