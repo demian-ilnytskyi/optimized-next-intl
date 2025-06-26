@@ -1,7 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { isDarkCookieKey } from "./deletect_theme_script";
-import { localeCookieName } from "../../config/middleware";
+import { localeCookieName, isDarkCookieKey } from "../../config/cookie_key";
 import config from "../../config/intl_config";
 export default async function getCurrentTheme() {
     const cookie = await cookies();

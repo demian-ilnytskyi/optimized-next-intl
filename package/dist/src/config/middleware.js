@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import getMatchingLocaleFromAcceptLanguage from '../server/functions/get_user_locale';
 import config from './intl_config';
-export const localeCookieName = '__user_locale_key__';
-export const isBotCookieKey = '__is_bot_key__';
+import { isBotCookieKey, localeCookieName } from './cookie_key';
 const sameSite = 'lax';
 const defaultCookieOption = {
     path: '/', // Cookie is valid for the entire domain

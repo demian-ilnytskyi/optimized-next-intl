@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { EnglishFlag, UkraineFlag } from "./flags";
 import { LanguageSwitcher as LanguageSwitcherComponent } from "optimized-next-intl";
 import KTextConstants from "@/shared/constants/variables/text_constants";
-import { useLocale } from "optimized-next-intl/src/client/components/client_provider";
+import { useLocale } from "optimized-next-intl";
 
 
 /**

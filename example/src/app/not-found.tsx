@@ -3,8 +3,8 @@ import AppTextStyle from "@/shared/constants/styles/app_text_styles";
 import type { Metadata } from "next";
 import RootLayout from "./[locale]/layout";
 import metadataHelper from "@/shared/helpers/metadata_helper";
-import { Link } from "optimized-next-intl";
-import { getLocale, getTranslations } from "optimized-next-intl/src/server/functions/server";
+import { getLocale, getTranslations } from "optimized-next-intl";
+import Link from "optimized-next-intl/Link";
 
 // Generate this page dynamic because we get language from cookie
 export const dynamic = 'force-dynamic';

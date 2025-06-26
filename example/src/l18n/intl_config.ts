@@ -1,5 +1,5 @@
 import KTextConstants from "@/shared/constants/variables/text_constants";
-import { setIntlConfig } from "optimized-next-intl/src/config/intl_config";
+import { setIntlConfig } from "optimized-next-intl";
 
 declare global {
     type Language = 'uk' | 'en';

@@ -1,9 +1,9 @@
 "use client";
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
-import { isDarkCookieKey } from "../functions/deletect_theme_script";
 import { cn } from "../../lib/utils";
 import { Moon, Sun } from "./icons";
+import { isDarkCookieKey } from "../../config/cookie_key";
 export default function ThemeSwticher({ isDark, className, lightLabelText, darkLabelText }) {
     const [isDarkMode, setDarkMode] = useState(isDark ?? false);
     useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
 import { usePathname as nextUsePathname } from "next/navigation";
-import { useLocale } from "../components/client_provider";
+import { useLocale } from "./client_hooks";
 export default function usePathname() {
     const pathname = nextUsePathname();
     const locale = useLocale();

@@ -1,6 +1,6 @@
 import { cn } from "../../lib/utils";
 
-export function Sun({ className }: { className: string }) {
+export function Sun({ className }: { className: string }): Component {
     return <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -25,7 +25,7 @@ export function Sun({ className }: { className: string }) {
     </svg>;
 }
 
-export function Moon({ className }: { className: string }) {
+export function Moon({ className }: { className: string }): Component {
     return <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

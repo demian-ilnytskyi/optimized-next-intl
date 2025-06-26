@@ -1,6 +1,4 @@
-import type { NextRequest, NextResponse } from 'next/server';
-import intlMiddleware from 'optimized-next-intl/src/config/middleware';
-
+import intlMiddleware from "optimized-next-intl/middleware";
 // This middleware function runs for every incoming request
 
 export const middleware = intlMiddleware;

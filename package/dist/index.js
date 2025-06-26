@@ -1,14 +1,15 @@
-import * as middleware from "./src/config/middleware";
-import { setIntlConfig } from "./src/config/intl_config";
-import * as serverProvider from "./src/server/components/server_provider";
-import * as server from "./src/server/functions/server";
-import * as metadata from "./src/general/metadata";
-import getCurrentTheme from "./src/theme_switcher/functions/get_current_theme";
-import detectThemeScript from "./src/theme_switcher/functions/deletect_theme_script";
-import ThemeSwitcher from "./src/theme_switcher/components/theme_switcher";
-import changeLanguage from "./src/server/functions/change_language";
-import Link from "./src/server/components/link";
-import LanguageSwitcher from "./src/client/components/language_switcher";
-import usePathname from "./src/client/hooks/usePathName";
-import { cn } from "./src/lib/utils";
-export { middleware, setIntlConfig, server, serverProvider, changeLanguage, Link, LanguageSwitcher, usePathname, metadata, getCurrentTheme, detectThemeScript, ThemeSwitcher, cn, };
+export { isBotCookieKey, localeCookieName, isDarkCookieKey } from './src/config/cookie_key'; // Export specific middleware function
+export { default as intlMiddleware } from './src/config/middleware'; // Export specific middleware function
+export { setIntlConfig } from './src/config/intl_config';
+export { getMessage, getTranslations, getLocale } from './src/server/functions/server'; // Export specific server function
+export { default as IntlProvider } from './src/server/components/server_provider';
+export { default as changeLagnuage } from './src/server/functions/change_language';
+export { default as Link } from './src/server/components/link';
+export { default as LanguageSwitcher } from './src/client/components/language_switcher';
+export { default as usePathname } from './src/client/hooks/usePathName';
+export { useLocale, useTranslations } from './src/client/hooks/client_hooks';
+export { alternatesLinks } from './src/general/metadata';
+export { default as getCurrentTheme } from './src/theme_switcher/functions/get_current_theme';
+export { default as DetectThemeScript } from './src/theme_switcher/functions/deletect_theme_script';
+export { default as ThemeSwitcher } from './src/theme_switcher/components/theme_switcher';
+export { cn } from './src/lib/utils';

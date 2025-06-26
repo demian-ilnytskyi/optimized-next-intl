@@ -1,6 +1,6 @@
 import { getTranslationsImpl } from "../../general/general_functions";
 import config from "../../config/intl_config";
-import { localeCookieName } from "../../config/middleware";
+import { localeCookieName } from "../../config/cookie_key";
 import type { TranslationObject, TranslatorReturnType } from "../../types/types";
 import { getLocaleCache, getMessageForLocaleCache, setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
 

@@ -1,9 +1,7 @@
 import { cn } from "@/lib/utils";
 import NavigationMobDialog from "./nav_mob_dialog";
 import LanguageSwitcher from "../language_switcher/language_switcher";
-import { Link } from "optimized-next-intl";
-import { getTranslations } from "optimized-next-intl/src/server/functions/server";
-import ThemeSwticher from "optimized-next-intl/src/theme_switcher/components/theme_switcher";
+import { getTranslations, ThemeSwitcher, Link } from "optimized-next-intl";
 
 export default async function NavigationBar({ isDark }: { isDark?: boolean }): Promise<Component> {
     const t = await getTranslations('NavigationBar');
@@ -41,7 +39,7 @@ export default async function NavigationBar({ isDark }: { isDark?: boolean }): P
                 <Buttons />
             </div>
             <div className="flex flex-row pr-3">
-                <ThemeSwticher
+                <ThemeSwitcher
                     isDark={isDark}
                     className="hidden tablet:flex mr-3"
                     lightLabelText={lightModeText}
@@ -57,7 +55,7 @@ export default async function NavigationBar({ isDark }: { isDark?: boolean }): P
                             className="mr-3"
                             ukraineSwitcherText={ukSwitchText}
                             englishSwitcherText={enSwitchText} />
-                        <ThemeSwticher isDark={isDark} lightLabelText={lightModeText} darkLabelText={darkModeText} />
+                        <ThemeSwitcher isDark={isDark} lightLabelText={lightModeText} darkLabelText={darkModeText} />
                     </div>
                 </NavigationMobDialog>
             </div>

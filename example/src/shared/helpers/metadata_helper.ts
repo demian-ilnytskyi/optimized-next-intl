@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import KTextConstants from "../constants/variables/text_constants";
-import { TranslatorReturnType } from "optimized-next-intl/src/types/types";
-import { alternatesLinks } from "optimized-next-intl/src/general/metadata";
+import { alternatesLinks, type TranslatorReturnType } from "optimized-next-intl";
 
 
 interface MetadataHelperProps {

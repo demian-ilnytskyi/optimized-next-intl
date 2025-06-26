@@ -3,10 +3,7 @@ import { NextResponse } from 'next/server';
 import getMatchingLocaleFromAcceptLanguage from '../server/functions/get_user_locale';
 import type { CookieAttributes } from '../types/types';
 import config from './intl_config';
-
-
-export const localeCookieName = '__user_locale_key__';
-export const isBotCookieKey = '__is_bot_key__';
+import { isBotCookieKey, localeCookieName } from './cookie_key';
 
 const sameSite: true | false | "lax" | "strict" | "none" | undefined = 'lax';
 

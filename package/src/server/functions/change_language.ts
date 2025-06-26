@@ -2,7 +2,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { localeCookieName } from "../../config/middleware";
+import { localeCookieName } from "../../config/cookie_key";
 
 export default async function changeLagnuage(value: string): Promise<void> {
     try {

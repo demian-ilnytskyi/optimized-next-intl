@@ -4,11 +4,22 @@
   "description": "Optimized Next Intl Package Special for App Router and Cloudflare",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./client": {
+      "types": "./dist/src/client/index.d.ts",
+      "import": "./dist/src/client/index.js",
+      "require": "./dist/src/client/index.cjs"
+    },
+    "./server": {
+      "types": "./dist/src/server/index.d.ts",
+      "import": "./dist/src/server/index.js",
+      "require": "./dist/src/server/index.cjs"
     },
     "./middleware": {
       "types": "./dist/src/config/middleware.d.ts",
@@ -19,11 +30,6 @@
       "types": "./dist/src/config/intl_config.d.ts",
       "import": "./dist/src/config/intl_config.js",
       "require": "./dist/src/config/intl_config.cjs"
-    },
-    "./server": {
-      "types": "./dist/src/server/functions/server.d.ts",
-      "import": "./dist/src/server/functions/server.js",
-      "require": "./dist/src/server/functions/server.cjs"
     },
     "./serverProvider": {
       "types": "./dist/src/server/components/server_provider.d.ts",

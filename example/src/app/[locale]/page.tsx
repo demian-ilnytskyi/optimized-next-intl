@@ -1,5 +1,5 @@
 import AppTextStyle from "@/shared/constants/styles/app_text_styles";
-import { getTranslations } from "optimized-next-intl/src/server/functions/server";
+import { getTranslations } from "optimized-next-intl";
 
 export default async function Home(): Promise<Component> {
   const t = await getTranslations('HomePage');

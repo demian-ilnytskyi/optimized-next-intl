@@ -9,7 +9,8 @@ try {
     intlConfig = require('../../../../src/l18n/intl_config');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 } catch (error) {
-    throw Error('Please set config file it should be in folder: src/l18n/intl_config.(ts|tsx|js|jsx)');
+    throw error;
+    // throw Error('Please set config file it should be in folder: src/l18n/intl_config.(ts|tsx|js|jsx)');
 }
 export function setIntlConfig<
     const AppLocales extends Locales,

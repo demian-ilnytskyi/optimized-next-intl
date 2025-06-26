@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-export const isDarkCookieKey = '__is_dark_key__';
+import { isDarkCookieKey } from "../../config/cookie_key";
 export default function DeletectThemeScript({ isDark }) {
     if (isDark !== undefined) {
         return null;

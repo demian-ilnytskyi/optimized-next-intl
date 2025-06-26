@@ -1,4 +1,4 @@
-export const isDarkCookieKey = '__is_dark_key__';
+import { isDarkCookieKey } from "../../config/cookie_key";
 
 export default function DeletectThemeScript({ isDark }: { isDark: boolean | null }): Component | null {
     if (isDark !== undefined) {
