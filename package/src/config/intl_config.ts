@@ -12,12 +12,6 @@ try {
     throw error;
     // throw Error('Please set config file it should be in folder: src/l18n/intl_config.(ts|tsx|js|jsx)');
 }
-export function setIntlConfig<
-    const AppLocales extends Locales,
-    const AppLocalePrefixMode extends LocalePrefixMode = 'as-needed'>
-    (config: RoutingConfig<AppLocales, AppLocalePrefixMode>): RoutingConfig<AppLocales, AppLocalePrefixMode> {
-    return config;
-}
 
 function getConfig(): RoutingConfig<Locales, LocalePrefixMode> {
     const value = intlConfig;
