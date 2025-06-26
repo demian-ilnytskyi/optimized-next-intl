@@ -37,7 +37,7 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
         aria-label={isDarkMode ? lightLabelText : darkLabelText}
         className={cn(
             "relative flex items-center justify-center", // Base flex container for centering content
-            "h-11.5 w-11.5 rounded-full", // Fixed size and rounded shape
+            "w-[2.87rem] h-[2.87rem] rounded-full", // Fixed size and rounded shape
             "cursor-pointer overflow-hidden", // Hide overflow for potential animations, pointer cursor
             "transition-colors duration-300 ease-in-out", // Smooth transition for background color
             "outline-none ring-2 ring-offset-2 ring-opacity-75", // Focus ring for accessibility

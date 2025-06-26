@@ -24,7 +24,7 @@ export default function LanguageSwitcher({ className, englishSwitcherText, ukrai
     const ariaLabelText = nextLocale === 'uk' ? ukraineSwitcherText : englishSwitcherText;
 
     return <LanguageSwitcherComponent
-        nextLocale={nextLocale} // Set the target locale for the link
+        locale={nextLocale} // Set the target locale for the link
         className={cn(
             "flex flex-row bg-blue-50 rounded-4xl group dark:bg-gray-400", // Styling for the switcher container
             className
