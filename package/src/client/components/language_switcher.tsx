@@ -14,32 +14,32 @@ import changeLanguage from '../../server/functions/change_language';
 
 
 type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> &
-    Omit<LinkProps, 'locale' | 'href' | 'prefetch' | 'onClick'>;
+    Omit<LinkProps, 'locale' | 'href' | 'prefetch' | 'onClick' | 'hrefLang'>;
 
 type Props = NextLinkProps & {
-    nextLocale: string;
+    locale: string;
 };
 
 function LanguageSwitcherComponent(
-    { nextLocale, scroll, ...rest }: Props,
+    { locale, scroll, ...rest }: Props,
     ref: Ref<HTMLAnchorElement>
 ) {
     const router = useRouter();
     const pathname = usePathname();
 
-    const localePrefix = nextLocale === config.defaultLocale ? '' : `/${nextLocale}`;
+    const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
 
     const href = `${localePrefix}${pathname}`;
 
     async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
-        await changeLanguage(nextLocale);
+        await changeLanguage(locale);
         router.push(href, { scroll: scroll });
     };
 
     return <LinkComponent
         ref={ref}
-        hrefLang={nextLocale}
+        hrefLang={locale}
         scroll={scroll}
         {...rest}
         href={href}
