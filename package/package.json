@@ -26,6 +26,11 @@
       "import": "./dist/src/config/middleware.js",
       "require": "./dist/src/config/middleware.cjs"
     },
+    "./setIntlConfig": {
+      "types": "./dist/src/config/init_config.d.ts",
+      "import": "./dist/src/config/init_config.js",
+      "require": "./dist/src/config/init_config.cjs"
+    },
     "./serverProvider": {
       "types": "./dist/src/server/components/server_provider.d.ts",
       "import": "./dist/src/server/components/server_provider.js",
