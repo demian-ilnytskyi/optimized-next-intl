@@ -30,9 +30,9 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
         "outline-none ring-2 ring-offset-2 ring-opacity-75", // Focus ring for accessibility
         "bg-gradient-to-br from-blue-300 to-blue-500 text-yellow-500 shadow-lg shadow-blue-500/50 ring-green-500", // Light mode default
         "dark:from-gray-700 dark:to-gray-900 dark:text-yellow-300 dark:shadow-gray-900/50 dark:ring-yellow-500", // Dark mode styles
-        className), children: [_jsx(Sun, { className: cn("absolute transition-transform duration-500 ease-in-out", "rotate-0 scale-100 opacity-100 cursor-pointer", // Default (light mode) state
+        className), children: [_jsx(Sun, { className: cn("transition-transform duration-500 ease-in-out", "rotate-0 scale-100 opacity-100 cursor-pointer", // Default (light mode) state
                 "dark:rotate-90 dark:scale-0 dark:opacity-0", // Dark mode state
-                "dark:w-0 dark:h-0 h-max w-max") }), _jsx(Moon, { className: cn("absolute transition-transform duration-500 ease-in-out", "-rotate-90 scale-0 opacity-0 cursor-pointer", // Default (light mode) state
+                "dark:w-0 dark:h-0 h-max w-max") }), _jsx(Moon, { className: cn("transition-transform duration-500 ease-in-out", "-rotate-90 scale-0 opacity-0 cursor-pointer", // Default (light mode) state
                 "dark:rotate-0 dark:scale-100 dark:opacity-100", // Dark mode state
                 "w-0 h-0 dark:h-max dark:w-max") })] });
 }

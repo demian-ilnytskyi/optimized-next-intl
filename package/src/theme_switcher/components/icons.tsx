@@ -10,8 +10,6 @@ export function Sun({ className }: { className: string }): Component {
         strokeLinecap="round"
         strokeLinejoin="round"
         className={cn(className)}
-        width={24}
-        height={24}
     >
         <circle cx="12" cy="12" r="5" />
         <line x1="12" y1="2" x2="12" y2="4" />
@@ -34,7 +32,7 @@ export function Moon({ className }: { className: string }): Component {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={cn(className, 'w-6 h-6')}
+        className={cn(className)}
     >
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>;
