@@ -1,0 +1,1 @@
+declare module '../../../../src/l18n/intl_config';

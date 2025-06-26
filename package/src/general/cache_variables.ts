@@ -1,4 +1,4 @@
-import type { TranslationObject, TranslatorReturnType } from "@/types/types";
+import type { TranslationObject, TranslatorReturnType } from "../types/types";
 
 // Caches for loaded translation objects and memoized translation functions.
 const loadedTranslations = new Map<string, TranslationObject>();
