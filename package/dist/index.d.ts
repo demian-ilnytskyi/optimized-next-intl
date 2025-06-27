@@ -2,7 +2,6 @@ export { isBotCookieKey, localeCookieName, isDarkCookieKey } from './src/config/
 export { default as intlMiddleware } from './src/config/middleware';
 export { setIntlConfig } from './src/config/init_config';
 export { getMessage, getTranslations, getLocale } from './src/server/functions/server';
-export { setLocaleCache as setLocale, setLocaleAsync } from './src/general/cache_variables';
 export { default as IntlProvider } from './src/server/components/server_provider';
 export { default as changeLagnuage } from './src/server/functions/change_language';
 export { default as Link } from './src/server/components/link';
