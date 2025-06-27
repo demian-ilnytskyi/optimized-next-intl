@@ -9,7 +9,16 @@ let currentLanguage: string | undefined = undefined; // Renamed 'language' to 'c
  * Sets the current locale.
  * @param locale The language to set.
  */
-export function setLocaleCache(locale: string): void {
+export function setLocaleCache(locale: string | { locale: string }): void {
+    if (typeof locale === 'string') {
+        currentLanguage = locale;
+    } else {
+        currentLanguage = locale.locale;
+    }
+}
+
+export async function setLocaleAsync(params: Promise<{ locale: string }>): Promise<void> {
+    const { locale } = await params;
     currentLanguage = locale;
 }
 
