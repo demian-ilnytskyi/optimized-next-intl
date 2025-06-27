@@ -19,14 +19,14 @@ type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> &
 type Props = NextLinkProps & {
     locale: string;
     onLoadingChange?: (isLoading: boolean) => void;
-    componentIsSWitcher?: boolean;
+    componentIsSwitcher?: boolean;
 };
 
 function LanguageSwitcherComponent(
     { locale,
         scroll,
         onLoadingChange,
-        componentIsSWitcher,
+        componentIsSwitcher,
         ...rest
     }: Props,
     ref: Ref<HTMLAnchorElement>
@@ -45,7 +45,7 @@ function LanguageSwitcherComponent(
     async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
         if (onLoadingChange) onLoadingChange(true);
         event.preventDefault();
-        const nextLocale = await changeLanguage(locale, componentIsSWitcher);
+        const nextLocale = await changeLanguage(locale, componentIsSwitcher);
         router.push(getPath(nextLocale), { scroll: scroll });
         if (onLoadingChange) onLoadingChange(false);
     };

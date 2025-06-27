@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import config from '../../config/intl_config';
 import usePathname from '../hooks/usePathName';
 import changeLanguage from '../../server/functions/change_language';
-function LanguageSwitcherComponent({ locale, scroll, onLoadingChange, componentIsSWitcher, ...rest }, ref) {
+function LanguageSwitcherComponent({ locale, scroll, onLoadingChange, componentIsSwitcher, ...rest }, ref) {
     const router = useRouter();
     const pathname = usePathname();
     function getPath(locale) {
@@ -18,7 +18,7 @@ function LanguageSwitcherComponent({ locale, scroll, onLoadingChange, componentI
         if (onLoadingChange)
             onLoadingChange(true);
         event.preventDefault();
-        const nextLocale = await changeLanguage(locale, componentIsSWitcher);
+        const nextLocale = await changeLanguage(locale, componentIsSwitcher);
         router.push(getPath(nextLocale), { scroll: scroll });
         if (onLoadingChange)
             onLoadingChange(false);
