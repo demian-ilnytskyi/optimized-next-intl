@@ -6,15 +6,19 @@ import { useRouter } from "next/navigation";
 import config from '../../config/intl_config';
 import usePathname from '../hooks/usePathName';
 import changeLanguage from '../../server/functions/change_language';
-function LanguageSwitcherComponent({ locale, scroll, ...rest }, ref) {
+function LanguageSwitcherComponent({ locale, scroll, onLoadingChange, ...rest }, ref) {
     const router = useRouter();
     const pathname = usePathname();
     const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
     const href = `${localePrefix}${pathname}`;
     async function handleClick(event) {
+        if (onLoadingChange)
+            onLoadingChange(true);
         event.preventDefault();
         await changeLanguage(locale);
         router.push(href, { scroll: scroll });
+        if (onLoadingChange)
+            onLoadingChange(false);
     }
     ;
     return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, ...rest, href: href, onClick: (e) => handleClick(e) });

@@ -18,10 +18,11 @@ type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> &
 
 type Props = NextLinkProps & {
     locale: string;
+    onLoadingChange?: (isLoading: boolean) => void;
 };
 
 function LanguageSwitcherComponent(
-    { locale, scroll, ...rest }: Props,
+    { locale, scroll, onLoadingChange, ...rest }: Props,
     ref: Ref<HTMLAnchorElement>
 ) {
     const router = useRouter();
@@ -32,9 +33,11 @@ function LanguageSwitcherComponent(
     const href = `${localePrefix}${pathname}`;
 
     async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
+        if (onLoadingChange) onLoadingChange(true);
         event.preventDefault();
         await changeLanguage(locale);
         router.push(href, { scroll: scroll });
+        if (onLoadingChange) onLoadingChange(false);
     };
 
     return <LinkComponent
