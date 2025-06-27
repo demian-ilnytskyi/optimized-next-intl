@@ -19,24 +19,34 @@ type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> &
 type Props = NextLinkProps & {
     locale: string;
     onLoadingChange?: (isLoading: boolean) => void;
+    componentIsSWitcher?: boolean;
 };
 
 function LanguageSwitcherComponent(
-    { locale, scroll, onLoadingChange, ...rest }: Props,
+    { locale,
+        scroll,
+        onLoadingChange,
+        componentIsSWitcher,
+        ...rest
+    }: Props,
     ref: Ref<HTMLAnchorElement>
 ) {
     const router = useRouter();
     const pathname = usePathname();
 
-    const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
+    function getPath(locale: string): string {
+        const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
 
-    const href = `${localePrefix}${pathname}`;
+        const href = `${localePrefix}${pathname}`;
+
+        return href;
+    }
 
     async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
         if (onLoadingChange) onLoadingChange(true);
         event.preventDefault();
-        await changeLanguage(locale);
-        router.push(href, { scroll: scroll });
+        const nextLocale = await changeLanguage(locale, componentIsSWitcher);
+        router.push(getPath(nextLocale), { scroll: scroll });
         if (onLoadingChange) onLoadingChange(false);
     };
 
@@ -45,7 +55,7 @@ function LanguageSwitcherComponent(
         hrefLang={locale}
         scroll={scroll}
         {...rest}
-        href={href}
+        href={getPath(locale)}
         onClick={(e) => handleClick(e)}
     />;
 }
