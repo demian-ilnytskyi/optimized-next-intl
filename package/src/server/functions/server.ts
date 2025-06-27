@@ -21,10 +21,7 @@ export async function getMessage(locale: string): Promise<TranslationObject> {
             const messages = (await import(`../../../../../../messages/${locale}.json`)).default as TranslationObject;
             setMessageForLocaleCache(locale, messages);
         } catch (error) {
-            console.error(`Failed to load translations for locale "${locale}":`, error);
-            // Cache an empty object for failed locales to prevent repeated failed attempts.
-            setMessageForLocaleCache(locale, {});
-            return {};
+            throw Error(`Please set localization file it should be in folder: messages/${locale}.json`);
         }
         return getMessageForLocaleCache(locale)!; // Assert non-null because it's guaranteed to be in the map
     }

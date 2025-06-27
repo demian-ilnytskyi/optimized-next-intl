@@ -12,7 +12,6 @@ export { alternatesLinks } from './src/general/metadata';
 export { default as getCurrentTheme } from './src/theme_switcher/functions/get_current_theme';
 export { default as DetectThemeScript } from './src/theme_switcher/functions/deletect_theme_script';
 export { default as ThemeSwitcher } from './src/theme_switcher/components/theme_switcher';
-export { cn } from './src/lib/utils';
 export type {
     CookieAttributes,
     LocalePrefixMode,

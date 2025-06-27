@@ -9,14 +9,14 @@ import { setTranslationCache } from "./cache_variables";
  * @param key The specific translation key being looked up.
  * @returns A fallback function that returns the key itself.
  */
-const warnAndReturnFallback = (message, cacheKey, locale, namespace, key) => {
+const errorAndReturnFallback = (message, cacheKey, locale, namespace, key) => {
     const parts = [
         message,
         namespace ? `Namespace: "${namespace}"` : '',
         key ? `Key: "${key}"` : '',
         `Locale: "${locale}"`,
     ].filter(Boolean); // Filter out empty parts
-    console.warn(parts.join(' | '));
+    console.error(parts.join(' | '));
     const fallbackFn = (k) => k; // Fallback function simply returns the key
     setTranslationCache(cacheKey, fallbackFn);
     return fallbackFn;
@@ -37,7 +37,7 @@ export function getTranslationsImpl(locale, messages, namespace, cacheKey) {
             }
             else {
                 // Namespace does not resolve to an object as expected.
-                return warnAndReturnFallback(`Namespace "${namespace}" does not resolve to an object.`, cacheKeyValue, locale, namespace);
+                return errorAndReturnFallback(`Namespace "${namespace}" does not resolve to an object.`, cacheKeyValue, locale, namespace);
             }
         }
         else {
@@ -47,13 +47,13 @@ export function getTranslationsImpl(locale, messages, namespace, cacheKey) {
             }
             else {
                 // Invalid structure in the middle of the namespace path.
-                return warnAndReturnFallback(`Namespace "${namespace}" has invalid structure at "${part}". Expected object, got "${typeof nextLevel}".`, cacheKeyValue, locale, namespace);
+                return errorAndReturnFallback(`Namespace "${namespace}" has invalid structure at "${part}". Expected object, got "${typeof nextLevel}".`, cacheKeyValue, locale, namespace);
             }
         }
     }
     // If after traversal, no base translations object was found.
     if (!translationsBase) {
-        return warnAndReturnFallback(`Translations for namespace "${namespace}" could not be found.`, cacheKeyValue, locale, namespace);
+        return errorAndReturnFallback(`Translations for namespace "${namespace}" could not be found.`, cacheKeyValue, locale, namespace);
     }
     /**
      * The actual translation function for a given key within the resolved namespace.
