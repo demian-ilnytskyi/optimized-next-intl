@@ -75,11 +75,6 @@
       "types": "./dist/src/theme_switcher/components/theme_switcher.d.ts",
       "import": "./dist/src/theme_switcher/components/theme_switcher.js",
       "require": "./dist/src/theme_switcher/components/theme_switcher.cjs"
-    },
-    "./cn": {
-      "types": "./dist/src/lib/utils.d.ts",
-      "import": "./dist/src/lib/utils.js",
-      "require": "./dist/src/lib/utils.cjs"
     }
   },
   "scripts": {
