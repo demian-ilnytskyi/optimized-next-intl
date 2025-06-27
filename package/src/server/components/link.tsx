@@ -5,7 +5,6 @@ import {
     type Ref,
 } from 'react';
 import type { UrlObject } from 'url';
-import { format } from 'url';
 import config from '../../config/intl_config';
 import { getLocaleCache } from '../../general/cache_variables';
 
@@ -30,7 +29,7 @@ function CustomLinkFunction(
     if (needsLangPath) {
         let pathname: string;
         if (typeof href === 'object') {
-            pathname = format(href);
+            pathname = href.pathname || '';
         } else {
             pathname = href;
         }

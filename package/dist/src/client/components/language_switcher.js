@@ -11,7 +11,7 @@ function LanguageSwitcherComponent({ locale, scroll, onLoadingChange, componentI
     const pathname = usePathname();
     function getPath(locale) {
         const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
-        const href = `${localePrefix}${pathname}`;
+        const href = `${localePrefix}${pathname === '/' && !localePrefix ? '' : pathname}`;
         return href;
     }
     async function handleClick(event) {

@@ -37,7 +37,7 @@ function LanguageSwitcherComponent(
     function getPath(locale: string): string {
         const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
 
-        const href = `${localePrefix}${pathname}`;
+        const href = `${localePrefix}${pathname === '/' && !localePrefix ? '' : pathname}`;
 
         return href;
     }
