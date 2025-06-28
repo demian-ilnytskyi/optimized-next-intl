@@ -24,10 +24,12 @@ type Props = NextLinkProps & {
 };
 
 function LocaleLinkComponent(
-    { locale,
+    {
+        locale,
         scroll,
         onLoadingChange,
         onFailed,
+        className,
         ...rest
     }: Props,
     ref: Ref<HTMLAnchorElement>
@@ -38,7 +40,7 @@ function LocaleLinkComponent(
 
     const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
 
-    const href = `${localePrefix}${pathname === '/' && !localePrefix ? '' : pathname}`;
+    const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
 
     async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
@@ -60,6 +62,7 @@ function LocaleLinkComponent(
         ref={ref}
         hrefLang={locale}
         scroll={scroll}
+        className={isLoading ? 'cursor-not-allowed ' : 'cursor-pointer '}
         {...rest}
         href={href}
         onClick={(e) => handleClick(e)}
