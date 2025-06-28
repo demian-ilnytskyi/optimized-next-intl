@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "optimized-next-intl";
+import { useTranslations } from "optimized-next-intl/use";
 
 
 export default function Home(): Component {

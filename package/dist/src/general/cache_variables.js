@@ -19,8 +19,8 @@ export function getLocaleCache() {
 export function setMessageForLocaleCache(locale, message) {
     loadedTranslations.set(locale, message);
 }
-export function getMessageForLocaleCache(locale) {
-    if (loadedTranslations.has(locale)) {
+export function getMessageCache(locale) {
+    if (locale && loadedTranslations.has(locale)) {
         return loadedTranslations.get(locale);
     }
     else {

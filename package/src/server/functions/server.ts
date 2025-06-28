@@ -2,7 +2,7 @@ import { getTranslationsImpl } from "../../general/general_functions";
 import config from "../../config/intl_config";
 import { localeCookieName } from "../../config/cookie_key";
 import type { TranslationObject, TranslatorReturnType } from "../../types/types";
-import { getLocaleCache, getMessageForLocaleCache, setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
+import { getLocaleCache, getMessageCache, setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
 
 /**
  * Loads and caches messages for a specific locale using dynamic import.
@@ -11,7 +11,7 @@ import { getLocaleCache, getMessageForLocaleCache, setLocaleCache, setMessageFor
  * @returns A promise that resolves to the TranslationObject for the given locale.
  */
 export async function getMessage(locale: string): Promise<TranslationObject> {
-    const message = getMessageForLocaleCache(locale);
+    const message = getMessageCache(locale);
     if (message) {
         return message;
     } else {
@@ -23,7 +23,7 @@ export async function getMessage(locale: string): Promise<TranslationObject> {
         } catch (error) {
             throw Error(`Please set localization file it should be in folder: messages/${locale}.json`);
         }
-        return getMessageForLocaleCache(locale)!; // Assert non-null because it's guaranteed to be in the map
+        return getMessageCache(locale)!; // Assert non-null because it's guaranteed to be in the map
     }
 }
 

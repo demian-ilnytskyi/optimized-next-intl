@@ -1,16 +1,1 @@
-export { isBotCookieKey, localeCookieName, isDarkCookieKey } from './src/config/cookie_key';
-export { default as intlMiddleware } from './src/config/middleware';
-export { setLocaleCache as setLocale, setLocaleAsync } from './src/general/cache_variables';
-export { setIntlConfig } from './src/config/init_config';
-export { getMessage, getTranslations, getLocale } from './src/server/functions/server';
-export { default as IntlProvider } from './src/server/components/server_provider';
-export { default as changeLagnuage } from './src/server/functions/change_language';
-export { default as Link } from './src/server/components/link';
-export { default as LocaleLink } from './src/client/components/locale_link';
-export { default as usePathname } from './src/client/hooks/usePathName';
-export { useLocale, useTranslations } from './src/client/hooks/client_hooks';
-export { alternatesLinks } from './src/general/metadata';
-export { default as getCurrentTheme } from './src/theme_switcher/functions/get_current_theme';
-export { default as DetectThemeScript } from './src/theme_switcher/functions/deletect_theme_script';
-export { default as ThemeSwitcher } from './src/theme_switcher/components/theme_switcher';
-export type { CookieAttributes, LocalePrefixMode, Locales, ReturnType, RoutingConfig, TranslationEntry, TranslationObject, TranslatorReturnType, } from './src/types/types';
+export * from './src';

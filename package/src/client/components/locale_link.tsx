@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { useRouter } from "next/navigation";
 import config from '../../config/intl_config';
-import usePathname from '../hooks/usePathName';
+import usePathname from '../hooks/use_path_name';
 import changeLanguage from '../../server/functions/change_language';
 
 

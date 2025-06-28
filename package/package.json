@@ -52,9 +52,9 @@
       "require": "./dist/src/client/components/locale_link.cjs"
     },
     "./usePathname": {
-      "types": "./dist/src/client/hooks/usePathName.d.ts",
-      "import": "./dist/src/client/hooks/usePathName.js",
-      "require": "./dist/src/client/hooks/usePathName.cjs"
+      "types": "./dist/src/client/hooks/use_path_name.d.ts",
+      "import": "./dist/src/client/hooks/use_path_name.js",
+      "require": "./dist/src/client/hooks/use_path_name.cjs"
     },
     "./metadata": {
       "types": "./dist/src/general/metadata.d.ts",
@@ -70,6 +70,18 @@
       "types": "./dist/src/theme_switcher/functions/detect_theme_script.d.ts",
       "import": "./dist/src/theme_switcher/functions/detect_theme_script.js",
       "require": "./dist/src/theme_switcher/functions/detect_theme_script.cjs"
+    },
+    "./use": {
+      "react-server": {
+        "types": "./dist/src/server/functions/use_functions.d.ts",
+        "import": "./dist/src/server/functions/use_functions.js",
+        "require": "./dist/src/server/functions/use_functions.cjs"
+      },
+      "default": {
+        "types": "./dist/src/client/hooks/client_hooks.d.ts",
+        "import": "./dist/src/client/hooks/client_hooks.js",
+        "require": "./dist/src/client/hooks/client_hooks.cjs"
+      }
     },
     "./ThemeSwitcher": {
       "types": "./dist/src/theme_switcher/components/theme_switcher.d.ts",
