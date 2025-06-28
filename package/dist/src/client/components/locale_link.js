@@ -32,7 +32,7 @@ function LocaleLinkComponent({ locale, scroll, onLoadingChange, onFailed, classN
         }
     }
     ;
-    return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: isLoading ? 'cursor-not-allowed ' : 'cursor-pointer ', ...rest, href: href, onClick: (e) => handleClick(e) });
+    return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: isLoading ? 'cursor-not-allowed ' : 'cursor-pointer ' + className, ...rest, href: href, onClick: (e) => handleClick(e) });
 }
 const LocaleLink = forwardRef(LocaleLinkComponent);
 export default LocaleLink;

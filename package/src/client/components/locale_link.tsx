@@ -62,7 +62,7 @@ function LocaleLinkComponent(
         ref={ref}
         hrefLang={locale}
         scroll={scroll}
-        className={isLoading ? 'cursor-not-allowed ' : 'cursor-pointer '}
+        className={isLoading ? 'cursor-not-allowed ' : 'cursor-pointer ' + className}
         {...rest}
         href={href}
         onClick={(e) => handleClick(e)}
