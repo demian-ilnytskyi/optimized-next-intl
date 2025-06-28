@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "optimized-next-intl/use";
 
 
