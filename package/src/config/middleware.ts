@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import getMatchingLocaleFromAcceptLanguage from '../server/functions/get_user_locale';
 import type { CookieAttributes } from '../types/types';
 import config from './intl_config';
-import { isBotCookieKey, localeCookieName } from './cookie_key';
+import { isBotCookieKey, localeCookieName, swiutchLocaleCookieName } from './cookie_key';
 
 const sameSite: true | false | "lax" | "strict" | "none" | undefined = 'lax';
 
@@ -28,19 +28,19 @@ export default async function intlMiddleware(request: NextRequest): Promise<Next
     try {
         let initialChosenLocale: string;
         const existingLocaleCookie = request.cookies.get(localeCookieName)?.value;
+        const switcherLocaleCookie = request.cookies.get(swiutchLocaleCookieName)?.value;
 
         let isSEOBot: boolean | undefined = undefined;
 
         // 1. The most performant step: Check if a locale cookie is already set
         // Also, verify if the value from this cookie is actually supported
         if (existingLocaleCookie && localesSet.has(existingLocaleCookie)) {
-            initialChosenLocale = existingLocaleCookie;
+            initialChosenLocale = switcherLocaleCookie ?? existingLocaleCookie;
         } else {
             const userAgent = request.headers.get('user-agent');
             isSEOBot = await getIsBotValue(userAgent);
             initialChosenLocale = isSEOBot ? config.defaultLocale : getMatchingLocaleFromAcceptLanguage(
                 request.headers.get('accept-language'),
-                config.defaultLocale,
             );
         }
 

@@ -1,1 +1,1 @@
-export default function getMatchingLocaleFromAcceptLanguage(acceptLanguageHeader: string | null, defaultLocale: string): string;
+export default function getMatchingLocaleFromAcceptLanguage(acceptLanguageHeader: string | null): string;

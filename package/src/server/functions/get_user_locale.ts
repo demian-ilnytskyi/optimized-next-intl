@@ -1,11 +1,12 @@
+import config from "../../config/intl_config";
+
 // Helper function to determine the best matching locale from the Accept-Language header
 export default function getMatchingLocaleFromAcceptLanguage(
     acceptLanguageHeader: string | null,
-    defaultLocale: string,
 ): string {
     try {
         if (!acceptLanguageHeader) {
-            return defaultLocale;
+            return config.defaultLocale;
         }
 
         // Parse the Accept-Language header, e.g., "en-US,en;q=0.9,es;q=0.8"
@@ -27,9 +28,9 @@ export default function getMatchingLocaleFromAcceptLanguage(
         }
 
         // If none of the languages in the Accept-Language header are supported, return the default locale
-        return localeValue?.locale ?? defaultLocale;
+        return localeValue?.locale ?? config.defaultLocale;
     } catch (e) {
         console.error(`Language Detect Error: acceptLanguageHeader: ${acceptLanguageHeader}`, e);
-        return defaultLocale;
+        return config.defaultLocale;
     }
 }

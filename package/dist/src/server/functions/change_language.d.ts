@@ -1,1 +1,1 @@
-export default function changeLagnuage(value: string, componentIsSWitcher?: boolean): Promise<string>;
+export default function changeLagnuage(value: string): Promise<boolean>;

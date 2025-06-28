@@ -3,6 +3,7 @@
 import LinkComponent, { type LinkProps } from 'next/link';
 import {
     forwardRef,
+    useState,
     type ComponentProps,
     type Ref,
 } from 'react';
@@ -19,35 +20,40 @@ type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> &
 type Props = NextLinkProps & {
     locale: string;
     onLoadingChange?: (isLoading: boolean) => void;
-    componentIsSwitcher?: boolean;
+    onFailed?: () => void;
 };
 
-function LanguageSwitcherComponent(
+function LocaleLinkComponent(
     { locale,
         scroll,
         onLoadingChange,
-        componentIsSwitcher,
+        onFailed,
         ...rest
     }: Props,
     ref: Ref<HTMLAnchorElement>
 ) {
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
 
-    function getPath(locale: string): string {
-        const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
+    const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
 
-        const href = `${localePrefix}${pathname === '/' && !localePrefix ? '' : pathname}`;
-
-        return href;
-    }
+    const href = `${localePrefix}${pathname === '/' && !localePrefix ? '' : pathname}`;
 
     async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
-        if (onLoadingChange) onLoadingChange(true);
         event.preventDefault();
-        const nextLocale = await changeLanguage(locale, componentIsSwitcher);
-        router.push(getPath(nextLocale), { scroll: scroll });
-        if (onLoadingChange) onLoadingChange(false);
+        if (!isLoading) {
+            setIsLoading(true);
+            if (onLoadingChange) onLoadingChange(true);
+            const state = await changeLanguage(locale);
+            if (state) {
+                router.push(href, { scroll: scroll });
+            } else {
+                if (onFailed) onFailed();
+            }
+            if (onLoadingChange) onLoadingChange(false);
+            setIsLoading(false);
+        }
     };
 
     return <LinkComponent
@@ -55,11 +61,11 @@ function LanguageSwitcherComponent(
         hrefLang={locale}
         scroll={scroll}
         {...rest}
-        href={getPath(locale)}
+        href={href}
         onClick={(e) => handleClick(e)}
     />;
 }
 
-const LanguageSwitcher = forwardRef(LanguageSwitcherComponent);
+const LocaleLink = forwardRef(LocaleLinkComponent);
 
-export default LanguageSwitcher;
+export default LocaleLink;

@@ -4,7 +4,7 @@ type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> & Omit<LinkProps
 type Props = NextLinkProps & {
     locale: string;
     onLoadingChange?: (isLoading: boolean) => void;
-    componentIsSwitcher?: boolean;
+    onFailed?: () => void;
 };
-declare const LanguageSwitcher: import("react").ForwardRefExoticComponent<Omit<Props, "ref"> & import("react").RefAttributes<HTMLAnchorElement>>;
-export default LanguageSwitcher;
+declare const LocaleLink: import("react").ForwardRefExoticComponent<Omit<Props, "ref"> & import("react").RefAttributes<HTMLAnchorElement>>;
+export default LocaleLink;
