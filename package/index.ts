@@ -5,7 +5,7 @@ export { getMessage, getTranslations, getLocale } from './src/server/functions/s
 export { default as IntlProvider } from './src/server/components/server_provider';
 export { default as changeLagnuage } from './src/server/functions/change_language';
 export { default as Link } from './src/server/components/link';
-export { default as LocaleLink } from './src/client/components/language_switcher';
+export { default as LocaleLink } from './src/client/components/locale_link';
 export { default as usePathname } from './src/client/hooks/usePathName';
 export { useLocale, useTranslations } from './src/client/hooks/client_hooks';
 export { alternatesLinks } from './src/general/metadata';

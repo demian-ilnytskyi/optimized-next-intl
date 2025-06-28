@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import NavigationMobDialog from "./nav_mob_dialog";
-import LanguageSwitcher from "../language_switcher/language_switcher";
+import LanguageSwitcher from "../locale_link/locale_link";
 import { getTranslations, ThemeSwitcher, Link } from "optimized-next-intl";
 
 export default async function NavigationBar({ isDark }: { isDark?: boolean }): Promise<Component> {
