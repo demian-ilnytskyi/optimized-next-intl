@@ -9,6 +9,10 @@ let currentLanguage = undefined; // Renamed 'language' to 'currentLanguage' for 
 export function setLocaleCache(locale) {
     currentLanguage = locale;
 }
+export async function setLocaleAsync(params) {
+    const { locale } = await params;
+    currentLanguage = locale;
+}
 export function getLocaleCache() {
     return currentLanguage;
 }

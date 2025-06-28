@@ -1,5 +1,5 @@
 import KTextConstants from '@/shared/constants/variables/text_constants';
-import { languages } from '@/shared/helpers/metadata_helper';
+// import { languages } from '@/shared/helpers/metadata_helper';
 import type { MetadataRoute } from 'next'
 import type { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types';
 
@@ -11,11 +11,11 @@ type Alternates = {
   languages?: Languages<string> | undefined;
 } | undefined;
 
-function generateAlternates(link?: string) {
-  return {
-    languages: languages(KTextConstants.baseUrl, link),
-  };
-}
+// function generateAlternates(link?: string) {
+//   return {
+//     languages: languages(KTextConstants.baseUrl, link),
+//   };
+// }
 
 interface CustomRouteProps {
   link?: string;
@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       changeFrequency: 'monthly',
       priority: 1,
-      alternates: generateAlternates(),
+      // alternates: generateAlternates(),
     },
   ];
 

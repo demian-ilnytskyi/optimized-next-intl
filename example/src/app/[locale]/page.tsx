@@ -1,7 +1,10 @@
 import AppTextStyle from "@/shared/constants/styles/app_text_styles";
-import { getTranslations } from "optimized-next-intl";
+import { getTranslations, setLocaleAsync } from "optimized-next-intl";
 
-export default async function Home(): Promise<Component> {
+export default async function Home({ params }: {
+  params: Promise<{ locale: Language }>;
+}): Promise<Component> {
+  await setLocaleAsync(params);
   const t = await getTranslations('HomePage');
 
   return <main className="flex-1 flex flex-col mt-5">
