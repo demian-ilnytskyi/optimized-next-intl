@@ -9,7 +9,15 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "@intl-config": [
+        "./src/types/intl_config"
+      ],
+      "@locale-file": [
+        "./src/types/locale_file"
+      ]
+    }
   },
   "include": [
     "./**/*.ts",

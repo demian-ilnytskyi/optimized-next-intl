@@ -17,7 +17,7 @@ export async function getMessage(locale) {
         try {
             // Dynamic import ensures that translation files are only loaded when needed.
             // The `default` export is used as per typical JSON module imports.
-            const messages = (await import(`../../../../../../messages/${locale}.json`)).default;
+            const messages = (await import(`@locale-file/${locale}.json`)).default;
             setMessageForLocaleCache(locale, messages);
         }
         catch (error) {
