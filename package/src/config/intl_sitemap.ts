@@ -9,7 +9,7 @@ function generateAlternates(url: string, link?: string): Alternates {
     };
 }
 
-export default function intlSitemap({
+export default function generateIntlSitemap({
     intlSitemap,
     url
 }: {

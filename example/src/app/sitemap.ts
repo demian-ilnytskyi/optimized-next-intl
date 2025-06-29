@@ -1,57 +1,19 @@
+
 import KTextConstants from '@/shared/constants/variables/text_constants';
-// import { languages } from '@/shared/helpers/metadata_helper';
 import type { MetadataRoute } from 'next'
-import type { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types';
+import type { IntlSitemap } from 'optimized-next-intl';
+import { generateIntlSitemap } from 'optimized-next-intl';
 
-const date = KTextConstants.currentDate;
-
-type changeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never' | undefined;
-
-type Alternates = {
-  languages?: Languages<string> | undefined;
-} | undefined;
-
-// function generateAlternates(link?: string) {
-//   return {
-//     languages: languages(KTextConstants.baseUrl, link),
-//   };
-// }
-
-interface CustomRouteProps {
-  link?: string;
-  changeFrequency?: changeFrequency;
-  priority?: number | undefined;
-  images?: string[] | undefined;
-  alternates?: Alternates;
-}
+const lastModified = new Date(2025, 5, 29);
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const customRoutes: CustomRouteProps[] = [
+  const intlSitemap: IntlSitemap[] = [
     {
       changeFrequency: 'monthly',
       priority: 1,
-      // alternates: generateAlternates(),
-    },
+      lastModified: lastModified
+    }
   ];
 
-  const routes = KTextConstants.locales.reduce(
-    (currentValue: MetadataRoute.Sitemap, locale: string) => {
-      const localeValue = locale === KTextConstants.defaultLocale ? '' : `/${locale}`;
-
-      const localeUrl = KTextConstants.baseUrl + localeValue;
-      for (const customRoute of customRoutes) {
-        currentValue.push({
-          ...customRoute,
-          url: localeUrl + (customRoute.link ?? ''),
-          lastModified: date,
-        });
-      }
-      return currentValue;
-    },
-    []
-  )
-
-  routes.sort((a, b) => a.url.localeCompare(b.url));
-
-  return routes;
+  return generateIntlSitemap({ intlSitemap, url: KTextConstants.baseUrl });
 }

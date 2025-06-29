@@ -5,7 +5,7 @@ function generateAlternates(url, link) {
         languages: languages(url, link),
     };
 }
-export default function intlSitemap({ intlSitemap, url }) {
+export default function generateIntlSitemap({ intlSitemap, url }) {
     const sitemap = [];
     for (const customRoute of intlSitemap) {
         const alternates = generateAlternates(url, customRoute.link);
