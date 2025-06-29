@@ -1,3 +1,5 @@
+import type { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types';
+import type { Videos } from 'next/dist/lib/metadata/types/metadata-types';
 export type Locales = readonly string[];
 export type LocalePrefixMode = 'always' | 'as-needed' | 'never';
 export interface RoutingConfig<AppLocales extends Locales, AppLocalePrefixMode extends LocalePrefixMode> {
@@ -135,3 +137,15 @@ export interface TranslationObject {
 }
 export type ReturnType = any;
 export type TranslatorReturnType = (key: string) => ReturnType;
+export type changeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never' | undefined;
+export type Alternates = {
+    languages?: Languages<string> | undefined;
+} | undefined;
+export interface IntlSitemap {
+    link?: string;
+    changeFrequency?: changeFrequency;
+    priority?: number | undefined;
+    images?: string[] | undefined;
+    lastModified: Date | string | undefined;
+    videos?: Videos[] | undefined;
+}

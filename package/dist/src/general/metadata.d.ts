@@ -7,3 +7,4 @@ export declare function alternatesLinks({ locale, url, canonical, linkPart }: {
     canonical?: string;
     languages: Record<string, string>;
 } | undefined;
+export declare function languages(url: string, linkPart?: string): Record<string, string>;

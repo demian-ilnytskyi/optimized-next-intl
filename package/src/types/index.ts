@@ -8,4 +8,7 @@ export type {
     TranslationEntry,
     TranslationObject,
     TranslatorReturnType,
+    Alternates,
+    changeFrequency,
+    IntlSitemap as CustomRouteProps,
 } from './types';
