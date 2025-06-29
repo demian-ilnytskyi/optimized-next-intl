@@ -69,9 +69,8 @@ export default async function intlMiddleware(request) {
             });
         }
         if (!existingLocaleCookie ||
-            existingLocaleCookie !== effectiveLocaleForRequest ||
-            (urlLocale && urlLocale !== initialChosenLocale)) {
-            response.cookies.set(localeCookieName, urlLocale ?? effectiveLocaleForRequest, defaultCookieOption);
+            existingLocaleCookie !== effectiveLocaleForRequest) {
+            response.cookies.set(localeCookieName, effectiveLocaleForRequest, defaultCookieOption);
             if (isSEOBot !== undefined) {
                 response.cookies.set(isBotCookieKey, isSEOBot.toString(), {
                     ...defaultCookieOption,

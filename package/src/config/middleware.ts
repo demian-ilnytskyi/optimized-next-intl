@@ -83,10 +83,9 @@ export default async function intlMiddleware(request: NextRequest): Promise<Next
         }
 
         if (!existingLocaleCookie ||
-            existingLocaleCookie !== effectiveLocaleForRequest ||
-            (urlLocale && urlLocale !== initialChosenLocale)) {
+            existingLocaleCookie !== effectiveLocaleForRequest) {
 
-            response.cookies.set(localeCookieName, urlLocale ?? effectiveLocaleForRequest, defaultCookieOption);
+            response.cookies.set(localeCookieName, effectiveLocaleForRequest, defaultCookieOption);
 
             if (isSEOBot !== undefined) {
                 response.cookies.set(isBotCookieKey, isSEOBot.toString(), {

@@ -34,7 +34,7 @@ function LocaleLinkComponent(
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
 
     function handleNavigate() {
-        setCookie({ name: switchLocaleCookieName, value: locale })
+        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 60 })
     };
 
     return <LinkComponent

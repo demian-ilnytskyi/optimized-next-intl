@@ -11,7 +11,7 @@ function LocaleLinkComponent({ locale, scroll, className, ...rest }, ref) {
     const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
     function handleNavigate() {
-        setCookie({ name: switchLocaleCookieName, value: locale });
+        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 60 });
     }
     ;
     return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: className, ...rest, href: href, onNavigate: handleNavigate });
