@@ -9,7 +9,6 @@ interface MetadataHelperProps {
   isMain?: boolean;
   canonical?: string
   linkPart: string;
-  setCanonical?: boolean;
 }
 
 export default function metadataHelper({
