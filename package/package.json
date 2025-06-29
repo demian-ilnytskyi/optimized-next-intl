@@ -76,6 +76,11 @@
       "import": "./dist/src/config/intl_sitemap.js",
       "require": "./dist/src/config/intl_sitemap.cjs"
     },
+    "./setCookieClient": {
+      "types": "./dist/src/client/functions/set_cookie.d.ts",
+      "import": "./dist/src/client/functions/set_cookie.js",
+      "require": "./dist/src/client/functions/set_cookie.cjs"
+    },
     "./use": {
       "react-server": {
         "types": "./dist/src/server/functions/use_functions.d.ts",

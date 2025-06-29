@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "./icons";
 import { isDarkCookieKey } from "../../config/cookie_key";
+import setCookie from "../../client/functions/set_cookie";
 
 
 export default function ThemeSwticher({ isDark, className, lightLabelText, darkLabelText }: {
@@ -27,8 +28,7 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
             htmlElement.classList.add('dark');
         }
         setDarkMode(!isDarkMode);
-        document.cookie = `${isDarkCookieKey}=${!isDarkMode}; path=/; max-age=31536000;` +
-            ` SameSite=Lax HttpOnly; ${process.env.NODE_ENV === 'production' ? "+ 'Secure;" : ''}`;
+        setCookie({ name: isDarkCookieKey, value: !isDarkMode })
     }
 
     return <button

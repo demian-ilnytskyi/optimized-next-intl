@@ -13,11 +13,11 @@ function cacheHeader(seconds: number) {
 }
 
 const nextConfig: NextConfig = {
-    compiler: {
-        removeConsole: isDev ? undefined : {
-            exclude: ["error", "warn"],
-        },
-    },
+    // compiler: {
+    //     removeConsole: isDev ? undefined : {
+    //         exclude: ["error", "warn"],
+    //     },
+    // },
     async headers() {
         return [
             {

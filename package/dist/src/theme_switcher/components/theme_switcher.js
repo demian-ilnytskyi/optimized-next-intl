@@ -3,6 +3,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "./icons";
 import { isDarkCookieKey } from "../../config/cookie_key";
+import setCookie from "../../client/functions/set_cookie";
 export default function ThemeSwticher({ isDark, className, lightLabelText, darkLabelText }) {
     const [isDarkMode, setDarkMode] = useState(isDark ?? false);
     useEffect(() => {
@@ -19,8 +20,7 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
             htmlElement.classList.add('dark');
         }
         setDarkMode(!isDarkMode);
-        document.cookie = `${isDarkCookieKey}=${!isDarkMode}; path=/; max-age=31536000;` +
-            ` SameSite=Lax HttpOnly; ${process.env.NODE_ENV === 'production' ? "+ 'Secure;" : ''}`;
+        setCookie({ name: isDarkCookieKey, value: !isDarkMode });
     }
     return _jsxs("button", { onClick: changeTheme, "aria-label": isDarkMode ? lightLabelText : darkLabelText, className: "relative flex items-center justify-center" + // Base flex container for centering content
             " p-2.5 aspect-square h-11.5 rounded-full cursor-pointer overflow-hidden" + // Hide overflow for potential animations, pointer cursor

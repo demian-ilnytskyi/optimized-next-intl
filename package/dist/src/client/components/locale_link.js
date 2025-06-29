@@ -4,21 +4,14 @@ import LinkComponent from 'next/link';
 import { forwardRef, } from 'react';
 import config from '../../config/intl_config';
 import usePathname from '../hooks/use_path_name';
-import changeLanguage from '../../server/functions/change_language';
-function LocaleLinkComponent({ locale, scroll, onLoadingChange, onFailed, className, ...rest }, ref) {
+import { swiutchLocaleCookieName as switchLocaleCookieName } from '../../config/cookie_key';
+import setCookie from '../functions/set_cookie';
+function LocaleLinkComponent({ locale, scroll, className, ...rest }, ref) {
     const pathname = usePathname();
     const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
-    async function handleNavigate() {
-        if (onLoadingChange)
-            onLoadingChange(true);
-        const state = await changeLanguage(locale);
-        if (!state) {
-            if (onFailed)
-                onFailed();
-        }
-        if (onLoadingChange)
-            onLoadingChange(false);
+    function handleNavigate() {
+        setCookie({ name: switchLocaleCookieName, value: locale });
     }
     ;
     return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: className, ...rest, href: href, onNavigate: handleNavigate });
