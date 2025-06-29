@@ -10,5 +10,5 @@ export type {
     TranslatorReturnType,
     Alternates,
     changeFrequency,
-    IntlSitemap as CustomRouteProps,
+    IntlSitemap,
 } from './types';
