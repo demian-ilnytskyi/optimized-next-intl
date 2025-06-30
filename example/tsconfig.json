@@ -30,10 +30,10 @@
         "./src/shared/constants/theme/fonts"
       ],
       "@intl-config": [
-        "src/l18n/intl_config"
+        "./src/l18n/intl_config"
       ],
       "@locale-file": [
-        "messages"
+        "./messages"
       ]
     }
   },
@@ -42,8 +42,5 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }
