@@ -1,6 +1,6 @@
 import { useTranslations } from "optimized-next-intl/use";
 
-
+// Example if not use setLocale or setLocaleAsync
 export default function Home(): Component {
     const t = useTranslations('HomePage');
     const list: string[] = t('list');

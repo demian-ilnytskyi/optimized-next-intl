@@ -2,11 +2,8 @@
 	"name": "example",
 	"version": "0.1.0",
 	"private": true,
-	"overrides": {
-		"next": "$next"
-	},
 	"scripts": {
-		"dev": "next dev",
+		"dev": "next dev --turbopack",
 		"build": "next build",
 		"analyze": "ANALYZE=true next build",
 		"start": "next start",
