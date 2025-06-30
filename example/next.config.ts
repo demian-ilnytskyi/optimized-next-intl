@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare"; import path from 'path';
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+import path from 'path';
 
 const isDev = process.env.NODE_ENV === "development";
 
