@@ -30,20 +30,3 @@ export function getMessageCache(locale) {
 export function setTranslationCache(cache, value) {
     translationFunctionsCache.set(cache, value);
 }
-export function getLocaleClient() {
-    if (currentLanguage) {
-        return currentLanguage;
-    }
-    else {
-        throw Error('you can use useLocale only with LocationzationProvider');
-    }
-}
-export function getMessagesClient() {
-    const value = currentLanguage ? loadedTranslations.get(currentLanguage) : undefined;
-    if (value) {
-        return value;
-    }
-    else {
-        throw Error('you can use useTranslations only with LocationzationProvider');
-    }
-}

@@ -21,7 +21,7 @@ export async function getMessage(locale: string): Promise<TranslationObject> {
             const messages = (await import(`@locale-file/${locale}.json`)).default as TranslationObject;
             setMessageForLocaleCache(locale, messages);
         } catch (error) {
-            throw Error(`Please set localization file it should be in folder: messages/${locale}.json`);
+            throw Error(`Please set localization file and set path to it in next.config as in the example and add json filed ${locale}.json with translations`);
         }
         return getMessageCache(locale)!; // Assert non-null because it's guaranteed to be in the map
     }

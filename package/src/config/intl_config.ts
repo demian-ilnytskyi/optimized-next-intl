@@ -8,7 +8,7 @@ function getConfig(): RoutingConfig<Locales, LocalePrefixMode> {
     if (value) {
         return intlConfig as RoutingConfig<Locales, LocalePrefixMode>;
     } else {
-        throw Error('Please set config file it should be in folder: src/l18n/intl_config.(ts|tsx|js|jsx)');
+        throw Error('Please set config file and set path to it in next.config as in the example');
     }
 }
 
