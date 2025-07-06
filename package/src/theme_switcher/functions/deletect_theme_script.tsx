@@ -13,8 +13,8 @@ export default function DeletectThemeScript({ isDark }: { isDark: boolean | null
         document.documentElement.classList.toggle('dark', prefersDark);
         document.cookie = '${isDarkCookieKey}=' +
                             prefersDark +
-                            '; path=/; max-age=31536000; SameSite=Lax;'
-                            ${process.env.NODE_ENV === 'production' ? ' + "Secure;"' : ''}
+                            '; path=/; max-age=31536000; SameSite=Lax;'+
+                            ${process.env.NODE_ENV === 'production' ? " Secure;" : ''}
                             ;
       })();
     `,
