@@ -33,8 +33,10 @@ function LocaleLinkComponent(
 
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
 
-    function handleNavigate() {
-        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 60 })
+    function handleNavigate(e: React.MouseEvent<HTMLAnchorElement>) {
+        e.preventDefault();
+        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 15 })
+        window.location.href = href;
     };
 
     return <LinkComponent
@@ -44,7 +46,7 @@ function LocaleLinkComponent(
         className={className}
         {...rest}
         href={href}
-        onNavigate={handleNavigate}
+        onClick={handleNavigate}
     />;
 }
 

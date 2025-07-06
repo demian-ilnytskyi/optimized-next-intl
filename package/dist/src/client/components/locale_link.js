@@ -10,11 +10,13 @@ function LocaleLinkComponent({ locale, scroll, className, ...rest }, ref) {
     const pathname = usePathname();
     const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
-    function handleNavigate() {
-        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 60 });
+    function handleNavigate(e) {
+        e.preventDefault();
+        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 15 });
+        window.location.href = href;
     }
     ;
-    return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: className, ...rest, href: href, onNavigate: handleNavigate });
+    return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: className, ...rest, href: href, onClick: handleNavigate });
 }
 const LocaleLink = forwardRef(LocaleLinkComponent);
 export default LocaleLink;
