@@ -29,14 +29,22 @@ function LocaleLinkComponent(
 ) {
     const pathname = usePathname();
 
-    const localePrefix = locale === config.defaultLocale ? '' : `/${locale}`;
+    const isDefaultLocale = locale === config.defaultLocale;
+
+    const localePrefix = isDefaultLocale ? '' : `/${locale}`;
 
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
 
     function handleNavigate(e: React.MouseEvent<HTMLAnchorElement>) {
-        e.preventDefault();
-        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 15 })
-        window.location.href = href;
+        if (isDefaultLocale) {
+            e.preventDefault();
+        }
+
+        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 15 });
+
+        if (isDefaultLocale) {
+            window.location.href = href;
+        }
     };
 
     return <LinkComponent
