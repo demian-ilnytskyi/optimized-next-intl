@@ -29,11 +29,11 @@ const nextConfig: NextConfig = {
         };
         return config;
     },
-    // compiler: {
-    //     removeConsole: isDev ? undefined : {
-    //         exclude: ["error", "warn"],
-    //     },
-    // },
+    compiler: {
+        removeConsole: isDev ? undefined : {
+            exclude: ["error", "warn"],
+        },
+    },
 
     images: {
         /**
@@ -177,22 +177,6 @@ const nextConfig: NextConfig = {
                     {
                         type: 'cookie',
                         key: '__clear_cache_key__',
-                        value: 'true',
-                    },
-                ],
-                headers: [
-                    {
-                        key: 'Cache-Control',
-                        value: 'no-store, must-revalidat',
-                    },
-                ],
-            },
-            {
-                source: '/:path*',
-                has: [
-                    {
-                        type: 'cookie',
-                        key: '__switched_locale_key__',
                         value: 'true',
                     },
                 ],
