@@ -1,8 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { localeCookieName, isDarkCookieKey } from "../../config/cookie_key";
-import config from "../../config/intl_config";
+import { localeCookieName, isDarkCookieKey } from "../config/cookie_key";
+import config from "../config/intl_config";
 
 interface HtmlParamProps {
     className?: string;
@@ -10,16 +10,20 @@ interface HtmlParamProps {
     lang: string;
 }
 
-export default async function getCurrentTheme(): Promise<{ isDark: boolean | null, locale: string, htmlParam?: HtmlParamProps }> {
+export default async function getLayoutStates(): Promise<{
+    isDark: boolean | null;
+    locale: string;
+    htmlParam?: HtmlParamProps;
+}> {
     const cookie = await cookies();
     const isDarkMode = cookie.get(isDarkCookieKey)?.value;
     const isDark = getCookieBooleanValue(isDarkMode);
-    const locale = (cookie.get(localeCookieName)?.value as string) ?? config.defaultLocale;
-    const htmlParam: HtmlParamProps = { suppressHydrationWarning: !isDarkMode, lang: locale };
+    const cookieLocale = (cookie.get(localeCookieName)?.value as string) ?? config.defaultLocale;
+    const htmlParam: HtmlParamProps = { suppressHydrationWarning: !isDarkMode, lang: cookieLocale };
     if (isDark === true) {
         htmlParam.className = 'dark';
     }
-    return { isDark, locale, htmlParam };
+    return { isDark, locale: cookieLocale, htmlParam };
 }
 
 function getCookieBooleanValue(cookieValue: string | undefined): boolean | null {

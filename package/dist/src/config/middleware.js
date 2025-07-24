@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import getMatchingLocaleFromAcceptLanguage from '../server/functions/get_user_locale';
 import config from './intl_config';
-import { isBotCookieKey, localeCookieName, swiutchLocaleCookieName } from './cookie_key';
-const sameSite = 'lax';
+import { isBotCookieKey, localeCookieName } from './cookie_key';
+const sameSite = false;
 const defaultCookieOption = {
     path: '/', // Cookie is valid for the entire domain
     maxAge: 2592000, // Store cookie for 30 days (in seconds).
-    httpOnly: true, // Recommended for security (prevents client-side script access)
-    secure: process.env.NODE_ENV === 'production', // Send cookie only over HTTPS in production
+    httpOnly: false,
+    secure: false, // Send cookie only over HTTPS in production
     sameSite: sameSite, // Protection against CSRF attacks. 'strict' or 'lax' are good choices.
 };
 async function getIsBotValue(userAgent) {
@@ -22,12 +22,11 @@ export default async function intlMiddleware(request) {
     try {
         let initialChosenLocale;
         const existingLocaleCookie = request.cookies.get(localeCookieName)?.value;
-        const switcherLocaleCookie = request.cookies.get(swiutchLocaleCookieName)?.value;
         let isSEOBot = undefined;
         // 1. The most performant step: Check if a locale cookie is already set
         // Also, verify if the value from this cookie is actually supported
         if (existingLocaleCookie && localesSet.has(existingLocaleCookie)) {
-            initialChosenLocale = switcherLocaleCookie ?? existingLocaleCookie;
+            initialChosenLocale = existingLocaleCookie;
         }
         else {
             const userAgent = request.headers.get('user-agent');
@@ -75,6 +74,8 @@ export default async function intlMiddleware(request) {
                 response.cookies.set(isBotCookieKey, isSEOBot.toString(), {
                     ...defaultCookieOption,
                     maxAge: 31536000, // 1 year
+                    secure: process.env.NODE_ENV === 'production',
+                    httpOnly: true,
                 });
             }
         }

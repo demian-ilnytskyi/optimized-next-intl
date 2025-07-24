@@ -3,15 +3,15 @@ import { NextResponse } from 'next/server';
 import getMatchingLocaleFromAcceptLanguage from '../server/functions/get_user_locale';
 import type { CookieAttributes } from '../types/types';
 import config from './intl_config';
-import { isBotCookieKey, localeCookieName, swiutchLocaleCookieName } from './cookie_key';
+import { isBotCookieKey, localeCookieName } from './cookie_key';
 
-const sameSite: true | false | "lax" | "strict" | "none" | undefined = 'lax';
+const sameSite: true | false | "lax" | "strict" | "none" | undefined = false;
 
 const defaultCookieOption: CookieAttributes = {
     path: '/', // Cookie is valid for the entire domain
     maxAge: 2592000, // Store cookie for 30 days (in seconds).
-    httpOnly: true, // Recommended for security (prevents client-side script access)
-    secure: process.env.NODE_ENV === 'production', // Send cookie only over HTTPS in production
+    httpOnly: false,
+    secure: false, // Send cookie only over HTTPS in production
     sameSite: sameSite, // Protection against CSRF attacks. 'strict' or 'lax' are good choices.
 };
 
@@ -28,14 +28,13 @@ export default async function intlMiddleware(request: NextRequest): Promise<Next
     try {
         let initialChosenLocale: string;
         const existingLocaleCookie = request.cookies.get(localeCookieName)?.value;
-        const switcherLocaleCookie = request.cookies.get(swiutchLocaleCookieName)?.value;
 
         let isSEOBot: boolean | undefined = undefined;
 
         // 1. The most performant step: Check if a locale cookie is already set
         // Also, verify if the value from this cookie is actually supported
         if (existingLocaleCookie && localesSet.has(existingLocaleCookie)) {
-            initialChosenLocale = switcherLocaleCookie ?? existingLocaleCookie;
+            initialChosenLocale = existingLocaleCookie;
         } else {
             const userAgent = request.headers.get('user-agent');
             isSEOBot = await getIsBotValue(userAgent);
@@ -91,7 +90,8 @@ export default async function intlMiddleware(request: NextRequest): Promise<Next
                 response.cookies.set(isBotCookieKey, isSEOBot.toString(), {
                     ...defaultCookieOption,
                     maxAge: 31536000, // 1 year
-
+                    secure: process.env.NODE_ENV === 'production',
+                    httpOnly: true,
                 });
             }
         }

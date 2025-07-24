@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils";
 import metadataHelper from "@/shared/helpers/metadata_helper";
 import { getTranslations } from "optimized-next-intl";
 import { IntlProvider } from "optimized-next-intl";
-import { getCurrentTheme } from "optimized-next-intl";
-import { DetectThemeScript } from "optimized-next-intl";
+import { DetectThemeScript, getLayoutStates } from "optimized-next-intl";
 
 
 export async function generateMetadata({ params }: {
@@ -34,7 +33,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): Promise<Component> {
-  const { locale, isDark, htmlParam } = await getCurrentTheme();
+  const { locale, isDark, htmlParam } = await getLayoutStates();
 
   return <html  {...htmlParam} >
     <head>

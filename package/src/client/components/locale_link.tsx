@@ -8,7 +8,7 @@ import {
 } from 'react';
 import config from '../../config/intl_config';
 import usePathname from '../hooks/use_path_name';
-import { swiutchLocaleCookieName as switchLocaleCookieName } from '../../config/cookie_key';
+import { localeCookieName } from '../../config/cookie_key';
 import setCookie from '../functions/set_cookie';
 
 type NextLinkProps = Omit<ComponentProps<'a'>, keyof LinkProps> &
@@ -36,15 +36,7 @@ function LocaleLinkComponent(
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
 
     function handleNavigate(e: React.MouseEvent<HTMLAnchorElement>) {
-        if (isDefaultLocale) {
-            e.preventDefault();
-        }
-
-        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 15 });
-
-        if (isDefaultLocale) {
-            window.location.href = href;
-        }
+        setCookie({ name: localeCookieName, value: locale, maxAge: 2592000, });
     };
 
     return <LinkComponent
@@ -54,6 +46,7 @@ function LocaleLinkComponent(
         className={className}
         {...rest}
         href={href}
+        prefetch={false}
         onClick={handleNavigate}
     />;
 }
