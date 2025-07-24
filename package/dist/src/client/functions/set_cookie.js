@@ -2,9 +2,6 @@
 export default function setCookie({ name, value, maxAge }) {
     try {
         let cookieString = `${name}=${value}; path=/; max-age=${maxAge ?? 31536000}; SameSite=Lax;`;
-        if (process.env.NODE_ENV === 'production') {
-            cookieString += ' Secure;';
-        }
         document.cookie = cookieString;
     }
     catch (e) {

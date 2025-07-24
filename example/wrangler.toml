@@ -13,10 +13,10 @@ compatibility_flags = [
 ]
 
 # Assets configuration (if you have a static assets directory)
-[assets] # Note: The closing bracket was missing in your original input, I've corrected it.
+[assets]
 directory = ".open-next/assets"
 binding = "ASSETS" # This is the variable name that will be available in your Worker to access assets
 
 # Observability (Logging and Monitoring)
-[observability] # Note: The closing bracket was missing in your original input, I've corrected it.
+[observability]
 enabled = true

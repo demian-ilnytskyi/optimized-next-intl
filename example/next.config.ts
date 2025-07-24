@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV === "development";
  * @returns A Cache-Control header string.
  */
 function cacheHeader(seconds: number) {
-    return isDev ? 'no-store' : `public, max-age=${seconds}, must-revalidate, stale-while-revalidate=120, stale-if-error=86400`;
+    return isDev ? 'no-store' : `no-cache, public, max-age=${seconds}, must-revalidate, stale-while-revalidate=120, stale-if-error=86400`;
 }
 
 const nextConfig: NextConfig = {
@@ -29,11 +29,11 @@ const nextConfig: NextConfig = {
         };
         return config;
     },
-    compiler: {
-        removeConsole: isDev ? undefined : {
-            exclude: ["error", "warn"],
-        },
-    },
+    // compiler: {
+    //     removeConsole: isDev ? undefined : {
+    //         exclude: ["error", "warn"],
+    //     },
+    // },
 
     images: {
         /**
@@ -177,6 +177,22 @@ const nextConfig: NextConfig = {
                     {
                         type: 'cookie',
                         key: '__clear_cache_key__',
+                        value: 'true',
+                    },
+                ],
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'no-store, must-revalidat',
+                    },
+                ],
+            },
+            {
+                source: '/:path*',
+                has: [
+                    {
+                        type: 'cookie',
+                        key: '__switched_locale_key__',
                         value: 'true',
                     },
                 ],

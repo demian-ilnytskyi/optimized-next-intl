@@ -4,7 +4,7 @@ import LinkComponent from 'next/link';
 import { forwardRef, } from 'react';
 import config from '../../config/intl_config';
 import usePathname from '../hooks/use_path_name';
-import { swiutchLocaleCookieName as switchLocaleCookieName } from '../../config/cookie_key';
+import { localeCookieName } from '../../config/cookie_key';
 import setCookie from '../functions/set_cookie';
 function LocaleLinkComponent({ locale, scroll, className, ...rest }, ref) {
     const pathname = usePathname();
@@ -12,16 +12,10 @@ function LocaleLinkComponent({ locale, scroll, className, ...rest }, ref) {
     const localePrefix = isDefaultLocale ? '' : `/${locale}`;
     const href = `${localePrefix}${pathname === '/' && localePrefix ? '' : pathname}`;
     function handleNavigate(e) {
-        if (isDefaultLocale) {
-            e.preventDefault();
-        }
-        setCookie({ name: switchLocaleCookieName, value: locale, maxAge: 15 });
-        if (isDefaultLocale) {
-            window.location.href = href;
-        }
+        setCookie({ name: localeCookieName, value: locale, maxAge: 2592000, });
     }
     ;
-    return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: className, ...rest, href: href, onClick: handleNavigate });
+    return _jsx(LinkComponent, { ref: ref, hrefLang: locale, scroll: scroll, className: className, ...rest, href: href, prefetch: false, onClick: handleNavigate });
 }
 const LocaleLink = forwardRef(LocaleLinkComponent);
 export default LocaleLink;
