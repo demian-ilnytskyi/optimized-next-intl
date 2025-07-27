@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import getMatchingLocaleFromAcceptLanguage from '../server/functions/get_user_locale';
+import languageDetecotr from '../server/functions/get_user_locale';
 import config from './intl_config';
 import { isBotCookieKey, localeCookieName } from './cookie_key';
 const sameSite = false;
@@ -31,7 +31,7 @@ export default async function intlMiddleware(request) {
         else {
             const userAgent = request.headers.get('user-agent');
             isSEOBot = await getIsBotValue(userAgent);
-            initialChosenLocale = isSEOBot ? config.defaultLocale : getMatchingLocaleFromAcceptLanguage(request.headers.get('accept-language'));
+            initialChosenLocale = isSEOBot ? config.defaultLocale : languageDetecotr(request.headers.get('accept-language'));
         }
         const { pathname, search, hash } = request.nextUrl;
         let urlLocale;

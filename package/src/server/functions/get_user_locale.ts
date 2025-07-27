@@ -20,16 +20,16 @@ export default function languageDetecotr(
             const parts = item.trim().split(';');
             const locale = parts[0];
             const languageOnly = locale.split('-')[0];
-            if (languageOnly) {
+            if (languageOnly && localesSet.has(languageOnly)) {
                 const q = parts.length > 1 ? parseFloat(parts[1].split('=')[1]) : 1;
-                if (localesSet.has(languageOnly) && (!localeValue || localeValue.q < q)) {
+                if (!localeValue || localeValue.q < q) {
                     localeValue = { locale: languageOnly, q };
                 }
             }
         }
 
         // If none of the languages in the Accept-Language header are supported, return the default locale
-        return localeValue?.locale ?? config.defaultLocale;
+        return localeValue ? localeValue.locale : config.defaultLocale;
     } catch (e) {
         console.error(`Language Detect Error: acceptLanguageHeader: ${acceptLanguageHeader}`, e);
         return config.defaultLocale;
