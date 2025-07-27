@@ -22,7 +22,7 @@ export default function languageDetecotr(
             const languageOnly = locale.split('-')[0];
             if (languageOnly) {
                 const q = parts.length > 1 ? parseFloat(parts[1].split('=')[1]) : 1;
-                if ((!localeValue || localeValue.q < q) && localesSet.has(languageOnly)) {
+                if (localesSet.has(languageOnly) && (!localeValue || localeValue.q < q)) {
                     localeValue = { locale: languageOnly, q };
                 }
             }
