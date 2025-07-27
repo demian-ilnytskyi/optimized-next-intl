@@ -1,7 +1,8 @@
 import config from "../../config/intl_config";
+import { localesSet } from "../../config/middleware";
 
 // Helper function to determine the best matching locale from the Accept-Language header
-export default function getMatchingLocaleFromAcceptLanguage(
+export default function languageDetecotr(
     acceptLanguageHeader: string | null,
 ): string {
     try {
@@ -17,11 +18,11 @@ export default function getMatchingLocaleFromAcceptLanguage(
 
         for (const item of parsedLocales) {
             const parts = item.trim().split(';');
-            const locale = parts[0]; // e.g., 'en-US'
+            const locale = parts[0];
             const languageOnly = locale.split('-')[0];
             if (languageOnly) {
-                const q = parts.length > 1 ? parseFloat(parts[1].split('=')[1]) : 1; // e.g., 0.9
-                if (!localeValue || localeValue.q < q) {
+                const q = parts.length > 1 ? parseFloat(parts[1].split('=')[1]) : 1;
+                if (localesSet.has(languageOnly) && (!localeValue || localeValue.q < q)) {
                     localeValue = { locale: languageOnly, q };
                 }
             }
