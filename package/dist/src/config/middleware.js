@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import languageDetecotr from '../server/functions/get_user_locale';
 import config from './intl_config';
-import { isBotCookieKey, localeCookieName } from './cookie_key';
+import { isBotCookieKey, loadSiteWithoutCacheCookieName, localeCookieName } from './cookie_key';
 const sameSite = false;
 const defaultCookieOption = {
     path: '/', // Cookie is valid for the entire domain
@@ -80,6 +80,9 @@ export default async function intlMiddleware(request) {
             }
         }
         response.headers.set('Content-Language', effectiveLocaleForRequest);
+        if (request.cookies.get(loadSiteWithoutCacheCookieName)?.value) {
+            request.cookies.delete(loadSiteWithoutCacheCookieName);
+        }
         return response;
     }
     catch (e) {
