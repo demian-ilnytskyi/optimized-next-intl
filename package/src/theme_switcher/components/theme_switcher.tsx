@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "./icons";
-import { isDarkCookieKey, loadSiteWithoutCacheCookieName } from "../../config/cookie_key";
+import { isDarkCookieKey } from "../../config/cookie_key";
 import setCookie from "../../client/functions/set_cookie";
 
 
@@ -29,7 +29,6 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
         }
         setDarkMode(!isDarkMode);
         setCookie({ name: isDarkCookieKey, value: !isDarkMode })
-        setCookie({ name: loadSiteWithoutCacheCookieName, value: true, maxAge: 2592000, });
     }
 
     return <button
