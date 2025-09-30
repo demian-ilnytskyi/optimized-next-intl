@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import languageDetecotr from '../server/functions/get_user_locale';
 import type { CookieAttributes } from '../types/types';
 import config from './intl_config';
-import { isBotCookieKey, localeCookieName } from './cookie_key';
+import { isBotCookieKey, loadSiteWithoutCacheCookieName, localeCookieName } from './cookie_key';
 
 const sameSite: true | false | "lax" | "strict" | "none" | undefined = false;
 
@@ -97,6 +97,10 @@ export default async function intlMiddleware(request: NextRequest): Promise<Next
         }
 
         response.headers.set('Content-Language', effectiveLocaleForRequest);
+
+        if (request.cookies.get(loadSiteWithoutCacheCookieName)?.value) {
+            request.cookies.delete(loadSiteWithoutCacheCookieName);
+        }
 
         return response;
     } catch (e) {
