@@ -1,7 +1,11 @@
 import { setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
-import LocationzationClientProvider from "../../client/components/client_provider";
 import { getMessage } from "../functions/server";
 import type { TranslationObject } from "../../types/types";
+import dynamic from "next/dynamic";
+
+const LocationzationClientProvider = dynamic(
+    () => import("../../client/components/client_provider"),
+);
 
 export default async function LocationzationProvider({ language, messages, children }: { language: string, messages?: TranslationObject, children: React.ReactNode }): Promise<Component> {
     if (language) {
