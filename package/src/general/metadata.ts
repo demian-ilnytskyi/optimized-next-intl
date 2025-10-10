@@ -9,7 +9,7 @@ export function alternatesLinks({ locale, url, canonical, linkPart }: {
     try {
         const linkPartValue = linkPart == '/' ? undefined : linkPart;
         return {
-            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPartValue ?? '/'}` : undefined),
+            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPartValue ?? ''}` : undefined),
             languages: languages(url, linkPartValue),
         };
     } catch (e) {
@@ -21,10 +21,10 @@ export function alternatesLinks({ locale, url, canonical, linkPart }: {
 export function languages(url: string, linkPart?: string): Record<string, string> {
     return config.locales.reduce(
         (acc: Record<string, string>, locale: string) => {
-            const localeValue = locale === config.defaultLocale ? (!linkPart ? '/' : '') : `/${locale}`;
+            const localeValue = locale === config.defaultLocale ? '' : `/${locale}`;
             acc[locale] = url + localeValue + (linkPart ?? '');
             return acc;
         },
-        { 'x-default': url + (linkPart ?? '/') }
+        { 'x-default': url + (linkPart ?? '') }
     );
 }

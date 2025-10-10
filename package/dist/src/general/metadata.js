@@ -3,7 +3,7 @@ export function alternatesLinks({ locale, url, canonical, linkPart }) {
     try {
         const linkPartValue = linkPart == '/' ? undefined : linkPart;
         return {
-            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPartValue ?? '/'}` : undefined),
+            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPartValue ?? ''}` : undefined),
             languages: languages(url, linkPartValue),
         };
     }
@@ -14,8 +14,8 @@ export function alternatesLinks({ locale, url, canonical, linkPart }) {
 }
 export function languages(url, linkPart) {
     return config.locales.reduce((acc, locale) => {
-        const localeValue = locale === config.defaultLocale ? (!linkPart ? '/' : '') : `/${locale}`;
+        const localeValue = locale === config.defaultLocale ? '' : `/${locale}`;
         acc[locale] = url + localeValue + (linkPart ?? '');
         return acc;
-    }, { 'x-default': url + (linkPart ?? '/') });
+    }, { 'x-default': url + (linkPart ?? '') });
 }
