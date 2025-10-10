@@ -20,7 +20,7 @@ export default function generateIntlSitemap({
     for (const customRoute of intlSitemap) {
         const alternates = generateAlternates(url, customRoute.link);
         for (const locale of config.locales) {
-            const localeValue = locale === config.defaultLocale ? '' : `/${locale}`;
+            const localeValue = locale === config.defaultLocale ? !customRoute.link ? '/' : '' : `/${locale}`;
 
             const localeUrl = url + localeValue;
             sitemap.push({
