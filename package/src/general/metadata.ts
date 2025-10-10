@@ -24,6 +24,6 @@ export function languages(url: string, linkPart?: string): Record<string, string
             acc[locale] = url + localeValue + (linkPart ?? '');
             return acc;
         },
-        { 'x-default': url + (linkPart ?? '') }
+        { 'x-default': url + (linkPart ?? '/') }
     );
 }
