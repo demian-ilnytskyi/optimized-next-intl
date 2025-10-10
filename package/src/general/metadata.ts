@@ -20,7 +20,7 @@ export function alternatesLinks({ locale, url, canonical, linkPart }: {
 export function languages(url: string, linkPart?: string): Record<string, string> {
     return config.locales.reduce(
         (acc: Record<string, string>, locale: string) => {
-            const localeValue = locale === config.defaultLocale ? !linkPart ? '/' : '' : `/${locale}`;
+            const localeValue = locale === config.defaultLocale ? (!linkPart ? '/' : '') : `/${locale}`;
             acc[locale] = url + localeValue + (linkPart ?? '');
             return acc;
         },
