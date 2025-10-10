@@ -13,7 +13,7 @@ export function alternatesLinks({ locale, url, canonical, linkPart }) {
 }
 export function languages(url, linkPart) {
     return config.locales.reduce((acc, locale) => {
-        const localeValue = locale === config.defaultLocale ? '' : `/${locale}`;
+        const localeValue = locale === config.defaultLocale ? (!linkPart ? '/' : '') : `/${locale}`;
         acc[locale] = url + localeValue + (linkPart ?? '');
         return acc;
     }, { 'x-default': url + (linkPart ?? '') });
