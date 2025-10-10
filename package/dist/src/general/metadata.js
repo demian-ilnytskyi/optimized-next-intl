@@ -16,5 +16,5 @@ export function languages(url, linkPart) {
         const localeValue = locale === config.defaultLocale ? (!linkPart ? '/' : '') : `/${locale}`;
         acc[locale] = url + localeValue + (linkPart ?? '');
         return acc;
-    }, { 'x-default': url + (linkPart ?? '') });
+    }, { 'x-default': url + (linkPart ?? '/') });
 }
