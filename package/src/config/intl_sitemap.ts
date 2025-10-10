@@ -18,15 +18,16 @@ export default function generateIntlSitemap({
 }): MetadataRoute.Sitemap {
     const sitemap: MetadataRoute.Sitemap = [];
     for (const customRoute of intlSitemap) {
-        const alternates = generateAlternates(url, customRoute.link);
+        const linkPart = customRoute.link == '/' ? undefined : customRoute.link;
+        const alternates = generateAlternates(url, linkPart);
         for (const locale of config.locales) {
-            const localeValue = locale === config.defaultLocale ? !customRoute.link ? '/' : '' : `/${locale}`;
+            const localeValue = locale === config.defaultLocale ? !linkPart ? '/' : '' : `/${locale}`;
 
             const localeUrl = url + localeValue;
             sitemap.push({
                 ...customRoute,
                 alternates: alternates,
-                url: localeUrl + (customRoute.link ?? ''),
+                url: localeUrl + (linkPart ?? ''),
             });
         }
     }

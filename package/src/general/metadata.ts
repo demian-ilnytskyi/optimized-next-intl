@@ -7,9 +7,10 @@ export function alternatesLinks({ locale, url, canonical, linkPart }: {
     canonical?: string
 }): { canonical?: string, languages: Record<string, string> } | undefined {
     try {
+        const linkPartValue = linkPart == '/' ? undefined : linkPart;
         return {
-            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPart}` : undefined),
-            languages: languages(url, linkPart),
+            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPartValue ?? '/'}` : undefined),
+            languages: languages(url, linkPartValue),
         };
     } catch (e) {
         console.error(`Language Helper error for Metadata, link: ${url}, linkPart: ${linkPart}`, e);

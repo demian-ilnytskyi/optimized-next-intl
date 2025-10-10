@@ -1,9 +1,10 @@
 import config from "../config/intl_config";
 export function alternatesLinks({ locale, url, canonical, linkPart }) {
     try {
+        const linkPartValue = linkPart == '/' ? undefined : linkPart;
         return {
-            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPart}` : undefined),
-            languages: languages(url, linkPart),
+            canonical: canonical ?? (locale === config.defaultLocale ? `${url}${linkPartValue ?? '/'}` : undefined),
+            languages: languages(url, linkPartValue),
         };
     }
     catch (e) {
