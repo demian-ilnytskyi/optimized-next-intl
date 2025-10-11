@@ -2,7 +2,8 @@ import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import type { JSX } from "react";
 import config from "../../config/intl_config";
 
-export default function HelperScript(): JSX.Element {
+export default function HelperScript(): JSX.Element | null {
+    if (process.env.NODE_ENV === "development") return null;
     return <script
         id="app-state-checker"
         dangerouslySetInnerHTML={{

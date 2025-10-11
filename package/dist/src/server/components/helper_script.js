@@ -2,6 +2,8 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import config from "../../config/intl_config";
 export default function HelperScript() {
+    if (process.env.NODE_ENV === "development")
+        return null;
     return _jsx("script", { id: "app-state-checker", dangerouslySetInnerHTML: {
             __html: `
       (function() {
