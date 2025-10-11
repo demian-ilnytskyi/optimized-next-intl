@@ -12,13 +12,7 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
         }
     }, [isDark]);
     function changeTheme() {
-        const htmlElement = document.documentElement;
-        if (isDarkMode) {
-            htmlElement.classList.remove('dark');
-        }
-        else {
-            htmlElement.classList.add('dark');
-        }
+        document.documentElement.classList.toggle('dark', !isDarkMode);
         setDarkMode(!isDarkMode);
         setCookie({ name: isDarkCookieKey, value: !isDarkMode });
     }

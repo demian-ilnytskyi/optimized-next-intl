@@ -28,7 +28,7 @@ export default function HelperScript() {
 
             // 2. Handle Dark Mode.
             // This block is self-contained and only runs if the cookie exists.
-            if (!isDarkValue) {
+            if (isDarkValue) {
                 const isDarkBool = isDarkValue === 'true';
                 // This check is efficient as it only touches the DOM when a change is needed.
                 if (document.documentElement.classList.contains('dark') !== isDarkBool) {

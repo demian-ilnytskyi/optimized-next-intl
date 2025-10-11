@@ -10,7 +10,7 @@ export default function HelperScriptClient(): null {
 
     useEffect(() => {
         const isDark = getCookie(isDarkCookieKey);
-        if (!isDark) {
+        if (isDark) {
             const isDarkBool = isDark === 'true';
             // This check is efficient as it only touches the DOM when a change is needed.
             if (document.documentElement.classList.contains('dark') !== isDarkBool) {
