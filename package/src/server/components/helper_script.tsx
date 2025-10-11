@@ -4,7 +4,7 @@ import config from "../../config/intl_config";
 import HelperScriptClient from "../../client/components/helper_script_client";
 
 export default function HelperScript(): JSX.Element | null {
-    if (process.env.NODE_ENV === "development") return null;
+    if (process.env.NODE_ENV === "development") return <HelperScriptClient />;
     return <>
         <script
             id="app-state-checker"

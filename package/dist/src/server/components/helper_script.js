@@ -4,7 +4,7 @@ import config from "../../config/intl_config";
 import HelperScriptClient from "../../client/components/helper_script_client";
 export default function HelperScript() {
     if (process.env.NODE_ENV === "development")
-        return null;
+        return _jsx(HelperScriptClient, {});
     return _jsxs(_Fragment, { children: [_jsx("script", { id: "app-state-checker", dangerouslySetInnerHTML: {
                     __html: `
       (function() {
