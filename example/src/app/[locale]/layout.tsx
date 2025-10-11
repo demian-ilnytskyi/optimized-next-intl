@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import NavigationBar from "@/shared/components/nav_bar/nav_bar";
 import { cn } from "@/lib/utils";
 import metadataHelper from "@/shared/helpers/metadata_helper";
-import { getTranslations } from "optimized-next-intl";
+import { getTranslations, HelperScript } from "optimized-next-intl";
 import { IntlProvider } from "optimized-next-intl";
 import { DetectThemeScript, getLayoutStates } from "optimized-next-intl";
 
@@ -39,6 +39,7 @@ export default async function RootLayout({
     <head>
       <meta httpEquiv="Content-Language" content={locale} />
       <DetectThemeScript isDark={isDark} />
+      <HelperScript />
     </head>
     <body
       className={cn(`bg-white dark:bg-gray-900`)}>

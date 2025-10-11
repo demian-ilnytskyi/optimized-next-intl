@@ -1,4 +1,4 @@
-import { TranslatorReturnType } from "../../types/types";
+import type { TranslatorReturnType } from "../../types/types";
 import { getTranslationsImpl } from "../../general/general_functions";
 import { getLocale, getMessage } from "./server";
 import { use } from "react";
