@@ -81,6 +81,11 @@
       "import": "./dist/src/client/functions/set_cookie.js",
       "require": "./dist/src/client/functions/set_cookie.cjs"
     },
+    "./getCookieClient": {
+      "types": "./dist/src/client/functions/get_cookie.d.ts",
+      "import": "./dist/src/client/functions/get_cookie.js",
+      "require": "./dist/src/client/functions/get_cookie.cjs"
+    },
     "./use": {
       "react-server": {
         "types": "./dist/src/server/functions/use_functions.d.ts",

@@ -1,13 +1,15 @@
 import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import type { JSX } from "react";
 import config from "../../config/intl_config";
+import HelperScriptClient from "../../client/components/helper_script_client";
 
 export default function HelperScript(): JSX.Element | null {
     if (process.env.NODE_ENV === "development") return null;
-    return <script
-        id="app-state-checker"
-        dangerouslySetInnerHTML={{
-            __html: `
+    return <>
+        <script
+            id="app-state-checker"
+            dangerouslySetInnerHTML={{
+                __html: `
       (function() {
         try {
             /**
@@ -29,7 +31,7 @@ export default function HelperScript(): JSX.Element | null {
 
             // 2. Handle Dark Mode.
             // This block is self-contained and only runs if the cookie exists.
-            if (isDarkValue !== null) {
+            if (!isDarkValue) {
                 const isDarkBool = isDarkValue === 'true';
                 // This check is efficient as it only touches the DOM when a change is needed.
                 if (document.documentElement.classList.contains('dark') !== isDarkBool) {
@@ -52,6 +54,8 @@ export default function HelperScript(): JSX.Element | null {
         }
       })();
     `,
-        }}
-    />;
+            }}
+        />
+        <HelperScriptClient />
+    </>;
 }

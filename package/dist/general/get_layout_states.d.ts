@@ -3,7 +3,7 @@ interface HtmlParamProps {
     suppressHydrationWarning?: boolean;
     lang: string;
 }
-export default function getCurrentTheme(): Promise<{
+export default function getLayoutStates(): Promise<{
     isDark: boolean | null;
     locale: string;
     htmlParam?: HtmlParamProps;

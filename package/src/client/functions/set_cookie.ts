@@ -6,6 +6,6 @@ export default function setCookie({ name, value, maxAge }: { name: string, value
 
         document.cookie = cookieString;
     } catch (e) {
-        console.log('Set cookie on client side error: ', e);
+        console.error('Set cookie on client side error: ', e);
     }
 };
