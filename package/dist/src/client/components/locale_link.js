@@ -12,7 +12,15 @@ function LocaleLinkComponent({ locale, scroll, className, ...rest }, ref) {
     const searchParams = useSearchParams();
     const [hash, setHash] = useState('');
     useEffect(() => {
-        setHash(window.location.hash);
+        function handleHashChange() {
+            setHash(window.location.hash);
+        }
+        // Initialize current hash
+        handleHashChange();
+        window.addEventListener('hashchange', handleHashChange);
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange);
+        };
     }, [pathname, searchParams]);
     const isDefaultLocale = locale === config.defaultLocale;
     const localePrefix = isDefaultLocale ? '' : `/${locale}`;
