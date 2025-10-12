@@ -1,7 +1,7 @@
 "use client";
 import { jsx as _jsx } from "react/jsx-runtime";
 import LinkComponent from 'next/link';
-import { forwardRef, useEffect, useState, } from 'react';
+import { forwardRef, } from 'react';
 import config from '../../config/intl_config';
 import usePathname from '../hooks/use_path_name';
 import { localeCookieName } from '../../config/cookie_key';
@@ -10,24 +10,12 @@ import { useSearchParams } from 'next/navigation';
 function LocaleLinkComponent({ locale, scroll, className, ...rest }, ref) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const [hash, setHash] = useState('');
-    useEffect(() => {
-        function handleHashChange() {
-            setHash(window.location.hash);
-        }
-        // Initialize current hash
-        handleHashChange();
-        window.addEventListener('hashchange', handleHashChange);
-        return () => {
-            window.removeEventListener('hashchange', handleHashChange);
-        };
-    }, []);
     const isDefaultLocale = locale === config.defaultLocale;
     const localePrefix = isDefaultLocale ? '' : `/${locale}`;
     const search = searchParams.toString();
     // Fix for the root path to avoid a trailing slash like `/fr/`
     const newPathname = pathname === '/' && (localePrefix) ? '' : pathname;
-    const href = `${localePrefix}${newPathname}${search ? `?${search}` : ''}${hash}`;
+    const href = `${localePrefix}${newPathname}${search ? `?${search}` : ''}`;
     function handleNavigate() {
         setCookie({ name: localeCookieName, value: locale });
     }
