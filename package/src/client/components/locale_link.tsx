@@ -46,7 +46,7 @@ function LocaleLinkComponent(
         return () => {
             window.removeEventListener('hashchange', handleHashChange);
         };
-    }, [pathname, searchParams]);
+    }, []);
 
     const isDefaultLocale = locale === config.defaultLocale;
     const localePrefix = isDefaultLocale ? '' : `/${locale}`;
