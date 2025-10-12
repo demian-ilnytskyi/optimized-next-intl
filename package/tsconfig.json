@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "rootDir": "./",
     "jsx": "react-jsx",
     "target": "es2020",
     "module": "esnext",

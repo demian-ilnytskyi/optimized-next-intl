@@ -41,7 +41,7 @@
       "import": "./dist/src/server/components/link.js",
       "require": "./dist/src/server/components/link.cjs"
     },
-    "./HelperScript": {
+    "./IntlHelperScript": {
       "types": "./dist/src/server/components/helper_script.d.ts",
       "import": "./dist/src/server/components/helper_script.js",
       "require": "./dist/src/server/components/helper_script.cjs"
@@ -65,11 +65,6 @@
       "types": "./dist/src/general/get_layout_states.d.ts",
       "import": "./dist/src/general/get_layout_states.js",
       "require": "./dist/src/general/get_layout_states.cjs"
-    },
-    "./detectThemeScript": {
-      "types": "./dist/src/theme_switcher/functions/detect_theme_script.d.ts",
-      "import": "./dist/src/theme_switcher/functions/detect_theme_script.js",
-      "require": "./dist/src/theme_switcher/functions/detect_theme_script.cjs"
     },
     "./generateIntlSitemap": {
       "types": "./dist/src/config/intl_sitemap.d.ts",

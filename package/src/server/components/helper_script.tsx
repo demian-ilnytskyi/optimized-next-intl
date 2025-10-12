@@ -1,10 +1,10 @@
 import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import config from "../../config/intl_config";
 
-export default function HelperScript(): Component | null {
+export default function HelperScript({ isDark }: { isDark: boolean | null }): Component | null {
     if (process.env.NODE_ENV === "development") return null;
     return <script
-        id="app-state-checker"
+        id="intl-app-state-checker"
         dangerouslySetInnerHTML={{
             __html: `
       (function() {
@@ -21,23 +21,31 @@ export default function HelperScript(): Component | null {
                 const match = document.cookie.match(new RegExp(\`(?:^|; )\${name}=([^;]*)\`));
                 return match ? decodeURIComponent(match[1]) : null;
             };
-            
-            function syncTheme(){
-                const isDarkValue = getCookie('${isDarkCookieKey}');
 
-                // 2. Handle Dark Mode.
-                // This block is self-contained and only runs if the cookie exists.
-                if (isDarkValue) {
-                    const isDarkBool = isDarkValue === 'true';
-                    const classList=document.documentElement.classList;
-                    // This check is efficient as it only touches the DOM when a change is needed.
-                    if (classList.contains('dark') !== isDarkBool) {
-                        classList.toggle('dark', isDarkBool);
-                    }
+            function setTheme(isDark){
+                const classList=document.documentElement.classList;
+                // This check is efficient as it only touches the DOM when a change is needed.
+                if (classList.contains('dark') !== isDark) {
+                    classList.toggle('dark', isDark);
                 }
             }
+            
+            function syncTheme(){
+                const isDark = getCookie('${isDarkCookieKey}');
 
-            syncTheme();
+                setTheme(isDark === 'true')
+            }
+
+            if(${isDark === null}){
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark);
+                document.cookie = '${isDarkCookieKey}=' +
+                                    prefersDark +
+                                    '; path=/; max-age=31536000; SameSite=Lax;'
+                                    ${process.env.NODE_ENV !== 'production' ? '+ " Secure;"' : ''};
+            }else{
+                syncTheme();
+            }
 
             // 1. Get cookie values directly and efficiently.
             const locale = getCookie('${localeCookieName}');
@@ -45,35 +53,31 @@ export default function HelperScript(): Component | null {
             // 3. Handle Locale Redirect.
             // The logic is clearer: redirect only if a non-default locale is set
             // and the URL isn't already localized.
-            const { pathname } = window.location;
+            const { pathname, search, hash } = window.location;
             if (locale && locale !== '${config.defaultLocale}' && !pathname.startsWith(\`/\${locale}\`)) {
-                const newPath = \`/\${locale}\${pathname === '/' ? '' : pathname}\`;
+                const newPath = \`/\${locale}\${pathname === '/' ? '' : pathname}\${search}\${hash}\`;
                 // Redirecting will stop further script execution on this page.
                 window.location.href = newPath;
+            } else{
+                // 3. Set up listeners for client-side navigation (only if not redirecting).
+                
+                // Store original history methods.
+                const pushState = history.pushState;
+                const replaceState = history.replaceState;
+
+                // IMPROVEMENT: Simplified URL change handling by calling syncTheme directly.
+                history.pushState = function (...args) {
+                    pushState.apply(history, args);
+                    syncTheme(); // Re-sync theme after navigation.
+                };
+                history.replaceState = function (...args) {
+                    replaceState.apply(history, args);
+                    syncTheme(); // Re-sync theme after state replacement.
+                };
+
+                // Listen for browser back/forward buttons.
+                window.addEventListener('popstate', syncTheme);
             }
-            
-            // Sync Theme when url change
-
-            const pushState = history.pushState;
-            const replaceState = history.replaceState;
-
-            function triggerUrlChange() {
-            window.dispatchEvent(new Event('urlchange'));
-            }
-
-            history.pushState = function (...args) {
-            pushState.apply(history, args);
-            triggerUrlChange();
-            };
-            history.replaceState = function (...args) {
-            replaceState.apply(history, args);
-            triggerUrlChange();
-            };
-
-            window.addEventListener('popstate', triggerUrlChange);
-
-            // Re-sync theme when URL changes
-            window.addEventListener('urlchange', syncTheme);
 
         } catch (e) {
             console.error('App State check Script Error:', e);

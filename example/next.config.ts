@@ -29,12 +29,11 @@ const nextConfig: NextConfig = {
         };
         return config;
     },
-    compiler: {
-        removeConsole: isDev ? undefined : {
-            exclude: ["error", "warn"],
-        },
-    },
-
+    // compiler: {
+    //     removeConsole: isDev ? undefined : {
+    //         exclude: ["error", "warn"],
+    //     },
+    // },
     images: {
         /**
          * Defines a list of device widths that Next.js should use to generate responsive image sizes.

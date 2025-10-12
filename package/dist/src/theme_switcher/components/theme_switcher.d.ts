@@ -1,4 +1,4 @@
-export default function ThemeSwticher({ isDark, className, lightLabelText, darkLabelText }: {
+export default function ThemeSwticher(params: {
     className?: string;
     isDark?: boolean;
     lightLabelText: string;
