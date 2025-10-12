@@ -33,6 +33,11 @@ function LocaleLinkComponent(
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
+    const [hash, setHash] = useState('');
+    useEffect(() => {
+        setHash(window.location.hash);
+    }, [pathname, searchParams]);
+
     const isDefaultLocale = locale === config.defaultLocale;
     const localePrefix = isDefaultLocale ? '' : `/${locale}`;
     const search = searchParams.toString();
@@ -40,7 +45,7 @@ function LocaleLinkComponent(
     // Fix for the root path to avoid a trailing slash like `/fr/`
     const newPathname = pathname === '/' && (localePrefix) ? '' : pathname;
 
-    const href = `${localePrefix}${newPathname}${search ? `?${search}` : ''}`;
+    const href = `${localePrefix}${newPathname}${search ? `?${search}` : ''}${hash}`;
 
     function handleNavigate() {
         setCookie({ name: localeCookieName, value: locale });

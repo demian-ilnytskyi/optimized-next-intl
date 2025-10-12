@@ -1,12 +1,14 @@
 import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import config from "../../config/intl_config";
+import ClientHelperScript from "../../client/components/client_helper_script";
 
 export default function HelperScript({ isDark }: { isDark: boolean | null }): Component | null {
-    if (process.env.NODE_ENV === "development") return null;
-    return <script
-        id="intl-app-state-checker"
-        dangerouslySetInnerHTML={{
-            __html: `
+    // if (process.env.NODE_ENV === "development") return null;
+    return <>
+        <script
+            id="intl-app-state-checker"
+            dangerouslySetInnerHTML={{
+                __html: `
       (function() {
         try {
             /**
@@ -64,8 +66,11 @@ export default function HelperScript({ isDark }: { isDark: boolean | null }): Co
                 // Store original history methods.
                 const pushState = history.pushState;
                 const replaceState = history.replaceState;
+                const back = history.back;
 
-                // IMPROVEMENT: Simplified URL change handling by calling syncTheme directly.
+                history.back = function (...args) {
+                    back.apply(history, args);
+                };
                 history.pushState = function (...args) {
                     pushState.apply(history, args);
                     syncTheme(); // Re-sync theme after navigation.
@@ -74,16 +79,14 @@ export default function HelperScript({ isDark }: { isDark: boolean | null }): Co
                     replaceState.apply(history, args);
                     syncTheme(); // Re-sync theme after state replacement.
                 };
-
-                // Listen for browser back/forward buttons.
-                window.addEventListener('popstate', syncTheme);
             }
-
         } catch (e) {
             console.error('App State check Script Error:', e);
         }
       })();
     `,
-        }}
-    />;
+            }}
+        />
+        <ClientHelperScript />
+    </>;
 }
