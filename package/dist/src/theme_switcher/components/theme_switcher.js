@@ -12,9 +12,10 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
         }
     }, [isDark]);
     function changeTheme() {
-        document.documentElement.classList.toggle('dark', !isDarkMode);
-        setDarkMode(!isDarkMode);
-        setCookie({ name: isDarkCookieKey, value: !isDarkMode });
+        const isDark = document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', !isDark);
+        setDarkMode(!isDark);
+        setCookie({ name: isDarkCookieKey, value: !isDark });
     }
     return _jsxs("button", { onClick: changeTheme, "aria-label": isDarkMode ? lightLabelText : darkLabelText, className: "relative flex items-center justify-center" + // Base flex container for centering content
             " p-2.5 aspect-square h-11.5 rounded-full cursor-pointer overflow-hidden" + // Hide overflow for potential animations, pointer cursor

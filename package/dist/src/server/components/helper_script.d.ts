@@ -1,2 +1,1 @@
-import type { JSX } from "react";
-export default function HelperScript(): JSX.Element | null;
+export default function HelperScript(): Component | null;

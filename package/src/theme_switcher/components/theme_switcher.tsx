@@ -21,9 +21,10 @@ export default function ThemeSwticher({ isDark, className, lightLabelText, darkL
     }, [isDark]);
 
     function changeTheme() {
-        document.documentElement.classList.toggle('dark', !isDarkMode);
-        setDarkMode(!isDarkMode);
-        setCookie({ name: isDarkCookieKey, value: !isDarkMode })
+        const isDark = document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', !isDark);
+        setDarkMode(!isDark);
+        setCookie({ name: isDarkCookieKey, value: !isDark })
     }
 
     return <button
