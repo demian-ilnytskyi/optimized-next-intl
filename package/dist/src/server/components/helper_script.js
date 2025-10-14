@@ -35,17 +35,6 @@ export default function HelperScript({ isDark }) {
                 setTheme(isDark === 'true')
             }
 
-            if(${isDark === null}){
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                setTheme(prefersDark);
-                document.cookie = '${isDarkCookieKey}=' +
-                                    prefersDark +
-                                    '; path=/; max-age=31536000; SameSite=Lax;'
-                                    ${process.env.NODE_ENV !== 'production' ? '+ " Secure;"' : ''};
-            }else{
-                syncTheme();
-            }
-
             // 1. Get cookie values directly and efficiently.
             const locale = getCookie('${localeCookieName}');
 
@@ -57,7 +46,17 @@ export default function HelperScript({ isDark }) {
                 const newPath = \`/\${locale}\${pathname === '/' ? '' : pathname}\${search}\${hash}\`;
                 // Redirecting will stop further script execution on this page.
                 window.location.href = newPath;
-            } else{
+            } else if(${isDark != undefined}){
+                if(${isDark === null}){
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    setTheme(prefersDark);
+                    document.cookie = '${isDarkCookieKey}=' +
+                                        prefersDark +
+                                        '; path=/; max-age=31536000; SameSite=Lax;'
+                                        ${process.env.NODE_ENV !== 'production' ? '+ " Secure;"' : ''};
+                }else{
+                    syncTheme();
+                }
                 // 3. Set up listeners for client-side navigation (only if not redirecting).
                 
                 // Store original history methods.
