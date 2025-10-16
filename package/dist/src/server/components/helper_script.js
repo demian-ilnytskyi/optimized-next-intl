@@ -3,10 +3,29 @@ import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import config from "../../config/intl_config";
 import ClientHelperScript from "../../client/components/client_helper_script";
 export default function HelperScript({ isDark }) {
-    // if (process.env.NODE_ENV === "development") return null;
+    if (process.env.NODE_ENV === "development")
+        return null;
     return _jsxs(_Fragment, { children: [_jsx("script", { id: "intl-app-state-checker", dangerouslySetInnerHTML: {
                     __html: `
-      (function() {
+      (async function() {
+        try {
+            const resp = await fetch('/config.json', { method: 'HEAD', cache: 'no-store' });
+            if (!resp.ok) {
+                const BUILD_ID = resp.headers.get('ETag')?.replace(/W\\/|"/g, '');
+                if(!BUILD_ID) return;
+
+                const prevBuild = localStorage.getItem('buildId');
+
+                if (prevBuild && prevBuild !== BUILD_ID) {
+                    localStorage.setItem('buildId', BUILD_ID);
+                    if(prevBuild){
+                        window.location.reload(true);
+                    }
+                }
+            }
+        } catch (e) {
+            console.error('Check Build ID Script Error:', e);
+        }
         try {
             /**
              * Efficiently retrieves a cookie value by its name.
