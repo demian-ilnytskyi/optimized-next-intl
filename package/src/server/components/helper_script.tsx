@@ -19,7 +19,7 @@ export default function HelperScript({ isDark }: { isDark?: boolean | null }): C
 
                 const prevBuild = localStorage.getItem('buildId');
 
-                if (prevBuild && prevBuild !== BUILD_ID) {
+                if (prevBuild !== BUILD_ID) {
                     localStorage.setItem('buildId', BUILD_ID);
                     if(prevBuild){
                         window.location.reload(true);
