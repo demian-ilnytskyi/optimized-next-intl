@@ -6,15 +6,16 @@ export default function HelperScript({ isDark }: { isDark?: boolean | null }): C
     if (process.env.NODE_ENV === "development") return null;
     return <>
         <script
-            id="intl-app-state-checker"
+            id="build-id-script"
             dangerouslySetInnerHTML={{
                 __html: `
-      (async function() {
+      (function() {
         try {
             const resp = await fetch('/config.json', { method: 'HEAD', cache: 'no-store' });
-            if (!resp.ok) {
+            if (resp.ok) {
                 const BUILD_ID = resp.headers.get('ETag')?.replace(/W\\/|"/g, '');
                 if(!BUILD_ID) return;
+                console.log('Build ID:', BUILD_ID);
 
                 const prevBuild = localStorage.getItem('buildId');
 
@@ -28,6 +29,16 @@ export default function HelperScript({ isDark }: { isDark?: boolean | null }): C
         } catch (e) {
             console.error('Check Build ID Script Error:', e);
         }
+      })();
+    `,
+            }}
+        />
+
+        <script
+            id="intl-app-state-checker"
+            dangerouslySetInnerHTML={{
+                __html: `
+      (async function() {
         try {
             /**
              * Efficiently retrieves a cookie value by its name.
