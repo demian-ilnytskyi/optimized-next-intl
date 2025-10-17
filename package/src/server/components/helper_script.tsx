@@ -9,7 +9,7 @@ export default function HelperScript({ isDark }: { isDark?: boolean | null }): C
             id="build-id-script"
             dangerouslySetInnerHTML={{
                 __html: `
-      (function() {
+      (async function() {
         try {
             const resp = await fetch('/config.json', { method: 'HEAD', cache: 'no-store' });
             if (resp.ok) {

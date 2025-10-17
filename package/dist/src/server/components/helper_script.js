@@ -7,7 +7,7 @@ export default function HelperScript({ isDark }) {
         return null;
     return _jsxs(_Fragment, { children: [_jsx("script", { id: "build-id-script", dangerouslySetInnerHTML: {
                     __html: `
-      (function() {
+      (async function() {
         try {
             const resp = await fetch('/config.json', { method: 'HEAD', cache: 'no-store' });
             if (resp.ok) {
