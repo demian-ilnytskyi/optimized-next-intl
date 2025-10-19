@@ -3,6 +3,7 @@ import config from "../../config/intl_config";
 import { localeCookieName } from "../../config/cookie_key";
 import { getLocaleCache, getMessageCache, setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
 import { cache } from "react";
+const isDev = process.env.NODE_ENV === 'development';
 /**
  * Loads and caches messages for a specific locale using dynamic import.
  * Prevents redundant file loads and handles import errors gracefully.
@@ -27,7 +28,7 @@ async function iGetMessage(locale) {
         return getMessageCache(locale); // Assert non-null because it's guaranteed to be in the map
     }
 }
-export const getMessage = cache(iGetMessage);
+export const getMessage = isDev ? iGetMessage : cache(iGetMessage);
 /**
  * Retrieves a translation function for a specific namespace and locale.
  * This function handles caching of both translation files and memoized translation functions.
@@ -47,7 +48,7 @@ async function iGetTranslations(namespace, locale) {
     const serverMessages = await iGetMessage(effectiveLocale);
     return getTranslationsImpl(effectiveLocale, serverMessages, namespace, cacheKey);
 }
-export const getTranslations = cache(iGetTranslations);
+export const getTranslations = isDev ? iGetTranslations : cache(iGetTranslations);
 /**
  * Determines the current locale. It first checks for an explicitly set locale,
  * and finally reads from cookies.
@@ -77,4 +78,4 @@ async function iGetLocale() {
         return config.defaultLocale;
     }
 }
-export const getLocale = process.env.NODE_ENV === 'development' ? iGetLocale : cache(iGetLocale);
+export const getLocale = isDev ? iGetLocale : cache(iGetLocale);
