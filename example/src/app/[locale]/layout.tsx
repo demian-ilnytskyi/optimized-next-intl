@@ -37,7 +37,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ locale: Language }>;
 }>): Promise<Component> {
-  const { locale = KTextConstants.defaultLocale } = await params;
+  const result = await params;
+  const locale = result?.locale ?? KTextConstants.defaultLocale;
 
   return <html lang={locale} suppressHydrationWarning>
     <head lang={locale}>
