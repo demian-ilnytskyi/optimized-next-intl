@@ -30,6 +30,8 @@ export async function generateMetadata({ params }: {
 
 export const generateStaticParams = getLocaleStaticParams;
 
+export const dynamicParams = false;
+
 export default async function RootLayout({
   children,
   params,
