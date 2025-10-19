@@ -66,11 +66,6 @@
       "import": "./dist/src/general/get_layout_states.js",
       "require": "./dist/src/general/get_layout_states.cjs"
     },
-    "./generateIntlSitemap": {
-      "types": "./dist/src/config/intl_sitemap.d.ts",
-      "import": "./dist/src/config/intl_sitemap.js",
-      "require": "./dist/src/config/intl_sitemap.cjs"
-    },
     "./setCookieClient": {
       "types": "./dist/src/client/functions/set_cookie.d.ts",
       "import": "./dist/src/client/functions/set_cookie.js",
@@ -80,6 +75,11 @@
       "types": "./dist/src/client/functions/get_cookie.d.ts",
       "import": "./dist/src/client/functions/get_cookie.js",
       "require": "./dist/src/client/functions/get_cookie.cjs"
+    },
+    "./localeStaticParams": {
+      "types": "./dist/src/server/functions/locale_static_params.d.ts",
+      "import": "./dist/src/server/functions/locale_static_params.js",
+      "require": "./dist/src/server/functions/locale_static_params.cjs"
     },
     "./use": {
       "react-server": {

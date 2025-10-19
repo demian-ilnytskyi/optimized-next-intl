@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import NavigationBar from "@/shared/components/nav_bar/nav_bar";
 import { cn } from "@/lib/utils";
 import metadataHelper from "@/shared/helpers/metadata_helper";
-import { getTranslations, IntlHelperScript } from "optimized-next-intl";
+import { getLocaleStaticParams, getTranslations, IntlHelperScript } from "optimized-next-intl";
 import { IntlProvider } from "optimized-next-intl";
 import KTextConstants from "@/shared/constants/variables/text_constants";
 
@@ -28,10 +28,7 @@ export async function generateMetadata({ params }: {
   }
 };
 
-export function generateStaticParams(): { locale: Language }[] {
-  const locales = KTextConstants.locales.map((locale) => ({ locale }));
-  return locales;
-}
+export const generateStaticParams = getLocaleStaticParams;
 
 export default async function RootLayout({
   children,

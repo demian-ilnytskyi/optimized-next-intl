@@ -4,8 +4,6 @@ import { cn } from "@/lib/utils";
 import { EnglishFlag, UkraineFlag } from "./flags";
 import { getLocale, LocaleLink } from "optimized-next-intl";
 import KTextConstants from "@/shared/constants/variables/text_constants";
-import { Suspense } from "react";
-
 
 /**
  * LanguageSwitcher component allows users to switch between Ukrainian and English languages.
