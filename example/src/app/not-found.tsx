@@ -7,7 +7,7 @@ import Link from "optimized-next-intl/Link";
 import RootLayout from "./[locale]/layout";
 
 // Generate this page dynamic because we get language from cookie
-export const dynamic = 'force-dynamic';;
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: {
   params: Promise<{ locale: Language }>;
