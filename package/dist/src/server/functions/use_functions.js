@@ -1,14 +1,15 @@
 import { getTranslationsImpl } from "../../general/general_functions";
 import { getLocale, getMessage } from "./server";
-import { use } from "react";
-export function useLocale() {
+import { cache, use } from "react";
+export function useLocaleImpl() {
     const language = use(getLocale());
     if (language === undefined) {
         throw new Error('Please set IntlProvider before using useLocale');
     }
     return language;
 }
-export function useTranslations(namespace) {
+export const useLocale = cache(useLocaleImpl);
+function useTranslationsImpl(namespace) {
     const language = use(getLocale());
     const messages = use(getMessage(language));
     if (!language || !messages) {
@@ -16,3 +17,4 @@ export function useTranslations(namespace) {
     }
     return getTranslationsImpl(language, messages, namespace);
 }
+export const useTranslations = cache(useTranslationsImpl);

@@ -1,11 +1,12 @@
 import { languages } from '../general/metadata';
 import config from './intl_config';
+import { cache } from 'react';
 function generateAlternates(url, link) {
     return {
         languages: languages(url, link),
     };
 }
-export default function generateIntlSitemap({ intlSitemap, url }) {
+function generateIntlSitemapIml({ intlSitemap, url }) {
     const sitemap = [];
     for (const customRoute of intlSitemap) {
         const linkPart = customRoute.link == '/' ? undefined : customRoute.link;
@@ -23,3 +24,5 @@ export default function generateIntlSitemap({ intlSitemap, url }) {
     sitemap.sort((a, b) => a.url.localeCompare(b.url));
     return sitemap;
 }
+const generateIntlSitemap = cache(generateIntlSitemapIml);
+export default generateIntlSitemap;

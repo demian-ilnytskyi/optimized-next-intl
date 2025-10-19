@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { EnglishFlag, UkraineFlag } from "./flags";
 import { getLocale, LocaleLink } from "optimized-next-intl";
 import KTextConstants from "@/shared/constants/variables/text_constants";
+import { Suspense } from "react";
 
 
 /**
@@ -14,9 +15,9 @@ import KTextConstants from "@/shared/constants/variables/text_constants";
 export default async function LanguageSwitcher({ className, englishSwitcherText, ukraineSwitcherText }: {
     className?: string,
     ukraineSwitcherText: string,
-    englishSwitcherText: string
+    englishSwitcherText: string,
 }): Promise<Component> {
-    const locale = await getLocale(); // Get the current path to maintain navigation context
+    const locale = await getLocale();
     const nextLocale: Language = locale === KTextConstants.defaultLocale ? 'uk' : 'en';
     const ariaLabelText = nextLocale === 'uk' ? ukraineSwitcherText : englishSwitcherText;
 
@@ -29,5 +30,5 @@ export default async function LanguageSwitcher({ className, englishSwitcherText,
         aria-label={ariaLabelText}>
         <UkraineFlag isActive={nextLocale === 'en'} />
         <EnglishFlag isActive={nextLocale === 'uk'} />
-    </LocaleLink>
+    </LocaleLink>;
 }

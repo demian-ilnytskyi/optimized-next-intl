@@ -5,7 +5,8 @@ import type { TranslationObject, TranslatorReturnType } from "../../types/types"
  * @param locale The locale for which to load messages.
  * @returns A promise that resolves to the TranslationObject for the given locale.
  */
-export declare function getMessage(locale: string): Promise<TranslationObject>;
+declare function iGetMessage(locale: string): Promise<TranslationObject>;
+export declare const getMessage: typeof iGetMessage;
 /**
  * Retrieves a translation function for a specific namespace and locale.
  * This function handles caching of both translation files and memoized translation functions.
@@ -13,10 +14,13 @@ export declare function getMessage(locale: string): Promise<TranslationObject>;
  * @param locale Optional: The specific locale to use. If not provided, it will be determined.
  * @returns A promise that resolves to a function, which takes a key and returns the translated string.
  */
-export declare function getTranslations(namespace: string, locale?: string): Promise<TranslatorReturnType>;
+declare function iGetTranslations(namespace: string, locale?: string): Promise<TranslatorReturnType>;
+export declare const getTranslations: typeof iGetTranslations;
 /**
  * Determines the current locale. It first checks for an explicitly set locale,
  * and finally reads from cookies.
  * @returns A promise that resolves to the determined Language.
  */
-export declare function getLocale(): Promise<string>;
+declare function iGetLocale(): Promise<string>;
+export declare const getLocale: typeof iGetLocale;
+export {};

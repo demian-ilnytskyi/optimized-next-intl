@@ -1,3 +1,6 @@
 import type { TranslatorReturnType } from "../../types/types";
-export declare function useLocale(): string;
-export declare function useTranslations(namespace: string): TranslatorReturnType;
+export declare function useLocaleImpl(): string;
+export declare const useLocale: typeof useLocaleImpl;
+declare function useTranslationsImpl(namespace: string): TranslatorReturnType;
+export declare const useTranslations: typeof useTranslationsImpl;
+export {};
