@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { languages } from '../general/metadata';
 import config from './intl_config';
 import type { Alternates, IntlSitemap } from '../types/types';
+import { cache } from 'react';
 
 function generateAlternates(url: string, link?: string): Alternates {
     return {
@@ -9,7 +10,7 @@ function generateAlternates(url: string, link?: string): Alternates {
     };
 }
 
-export default function generateIntlSitemap({
+function generateIntlSitemapIml({
     intlSitemap,
     url
 }: {
@@ -36,3 +37,7 @@ export default function generateIntlSitemap({
 
     return sitemap;
 }
+
+const generateIntlSitemap = cache(generateIntlSitemapIml);
+
+export default generateIntlSitemap;

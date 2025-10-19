@@ -3,13 +3,11 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { isDarkCookieKey } from "../../config/cookie_key";
 import setCookie from "../../client/functions/set_cookie";
-export default function ThemeSwticherButton({ isDark, className, lightLabelText, darkLabelText, children, }) {
-    const [isDarkMode, setDarkMode] = useState(isDark ?? false);
+export default function ThemeSwticherButton({ className, lightLabelText, darkLabelText, children, }) {
+    const [isDarkMode, setDarkMode] = useState(false);
     useEffect(() => {
-        if (isDark === undefined) {
-            setDarkMode(document.documentElement.classList.contains('dark'));
-        }
-    }, [isDark]);
+        setDarkMode(document.documentElement.classList.contains('dark'));
+    }, []);
     function changeTheme() {
         const isDark = document.documentElement.classList.contains('dark');
         document.documentElement.classList.toggle('dark', !isDark);

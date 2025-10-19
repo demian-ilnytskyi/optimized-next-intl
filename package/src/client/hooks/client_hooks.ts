@@ -2,7 +2,7 @@
 
 import { useContext, useMemo } from "react";
 import { LocaleContext } from "../components/client_provider";
-import { TranslatorReturnType } from "../../types/types";
+import type { TranslatorReturnType } from "../../types/types";
 import { getTranslationsImpl } from "../../general/general_functions";
 
 

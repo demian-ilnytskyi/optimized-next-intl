@@ -15,7 +15,7 @@ export function setLocaleCache(locale: string): void {
 
 export async function setLocaleAsync(params: Promise<{ locale: string }>): Promise<void> {
     const { locale } = await params;
-    currentLanguage = locale;
+    setLocaleCache(locale);
 }
 
 export function getLocaleCache(): string | undefined {

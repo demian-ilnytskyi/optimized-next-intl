@@ -1,9 +1,9 @@
 import type { TranslatorReturnType } from "../../types/types";
 import { getTranslationsImpl } from "../../general/general_functions";
 import { getLocale, getMessage } from "./server";
-import { use } from "react";
+import { cache, use } from "react";
 
-export function useLocale(): string {
+export function useLocaleImpl(): string {
     const language = use(getLocale());
     if (language === undefined) {
         throw new Error('Please set IntlProvider before using useLocale');
@@ -11,7 +11,9 @@ export function useLocale(): string {
     return language;
 }
 
-export function useTranslations(namespace: string): TranslatorReturnType {
+export const useLocale = cache(useLocaleImpl);
+
+function useTranslationsImpl(namespace: string): TranslatorReturnType {
     const language = use(getLocale());
     const messages = use(getMessage(language));
 
@@ -21,3 +23,5 @@ export function useTranslations(namespace: string): TranslatorReturnType {
 
     return getTranslationsImpl(language, messages, namespace);
 }
+
+export const useTranslations = cache(useTranslationsImpl);
