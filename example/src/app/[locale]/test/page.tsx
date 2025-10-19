@@ -1,8 +1,13 @@
-import { useTranslations } from "optimized-next-intl/use";
+import { getTranslations, setLocaleAsync } from "optimized-next-intl";
+
+export const dynamic = 'force-dynamic';
 
 // Example if not use setLocale or setLocaleAsync
-export default function Home(): Component {
-    const t = useTranslations('HomePage');
+export default async function Home({ params }: {
+    params: Promise<{ locale: Language }>;
+}): Promise<Component> {
+    await setLocaleAsync(params);
+    const t = await getTranslations('HomePage');
     const list: string[] = t('list');
 
     return <main className="flex-1 flex flex-col mt-5">

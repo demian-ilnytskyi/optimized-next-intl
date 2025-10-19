@@ -3,6 +3,7 @@ import config from "../../config/intl_config";
 import { localeCookieName } from "../../config/cookie_key";
 import type { TranslationObject, TranslatorReturnType } from "../../types/types";
 import { getLocaleCache, getMessageCache, setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
+import { cache } from "react";
 
 /**
  * Loads and caches messages for a specific locale using dynamic import.
@@ -10,7 +11,7 @@ import { getLocaleCache, getMessageCache, setLocaleCache, setMessageForLocaleCac
  * @param locale The locale for which to load messages.
  * @returns A promise that resolves to the TranslationObject for the given locale.
  */
-export async function getMessage(locale: string): Promise<TranslationObject> {
+async function iGetMessage(locale: string): Promise<TranslationObject> {
     const message = getMessageCache(locale);
     if (message) {
         return message;
@@ -20,12 +21,14 @@ export async function getMessage(locale: string): Promise<TranslationObject> {
             // The `default` export is used as per typical JSON module imports.
             const messages = (await import(`@locale-file/${locale}.json`)).default as TranslationObject;
             setMessageForLocaleCache(locale, messages);
-        } catch (error) {
+        } catch {
             throw Error(`Please set localization file and set path to it in next.config as in the example and add json filed ${locale}.json with translations`);
         }
         return getMessageCache(locale)!; // Assert non-null because it's guaranteed to be in the map
     }
 }
+
+export const getMessage = cache(iGetMessage);
 
 /**
  * Retrieves a translation function for a specific namespace and locale.
@@ -34,7 +37,7 @@ export async function getMessage(locale: string): Promise<TranslationObject> {
  * @param locale Optional: The specific locale to use. If not provided, it will be determined.
  * @returns A promise that resolves to a function, which takes a key and returns the translated string.
  */
-export async function getTranslations(namespace: string, locale?: string): Promise<TranslatorReturnType> {
+async function iGetTranslations(namespace: string, locale?: string): Promise<TranslatorReturnType> {
     // Determine the effective locale, awaiting getLocale only if not provided.
     const effectiveLocale = locale ?? (await getLocale());
     const cacheKey = `${effectiveLocale}-${namespace}`;
@@ -45,16 +48,19 @@ export async function getTranslations(namespace: string, locale?: string): Promi
     // }
 
     // Load messages for the effective locale. This also benefits from caching.
-    const serverMessages = await getMessage(effectiveLocale);
+    const serverMessages = await iGetMessage(effectiveLocale);
 
     return getTranslationsImpl(effectiveLocale, serverMessages, namespace, cacheKey);
 }
+
+export const getTranslations = cache(iGetTranslations);
+
 /**
  * Determines the current locale. It first checks for an explicitly set locale,
  * and finally reads from cookies.
  * @returns A promise that resolves to the determined Language.
  */
-export async function getLocale(): Promise<string> {
+async function iGetLocale(): Promise<string> {
     // If locale is already set (e.g., via setLocale), return it immediately.
     const localeCache = getLocaleCache();
     if (localeCache) {
@@ -73,8 +79,10 @@ export async function getLocale(): Promise<string> {
         setLocaleCache(localeValue); // Cache the resolved language for future synchronous access
         return localeValue;
     } catch (error) {
-        console.error("Error accessing cookies in getLocale, falling back to default:", error);
+        console.error(`Error accessing cookies in getLocale, falling back to default: ${error}`);
         setLocaleCache(config.defaultLocale); // Cache fallback language on error
         return config.defaultLocale;
     }
 }
+
+export const getLocale = process.env.NODE_ENV === 'development' ? iGetLocale : cache(iGetLocale);

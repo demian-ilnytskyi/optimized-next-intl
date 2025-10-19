@@ -1,17 +1,14 @@
-/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import config from "../../config/intl_config";
 import ClientHelperScript from "../../client/components/client_helper_script";
-import Script from "next/script";
 
-export default function HelperScript({ isDark }: { isDark?: boolean | null }): Component | null {
-    if (process.env.NODE_ENV === "development") return null;
+const secureCookieAttribute = process.env.NODE_ENV !== 'production' ? '+ " Secure;"' : '';
+
+export default function HelperScript(): Component | null {
+    // if (process.env.NODE_ENV === "development") return null;
     return <>
-        <Script
-            id="build-id-script"
-            crossOrigin="anonymous"
-            strategy="beforeInteractive"
-        >
+        <script
+            id="build-id-script">
             {`(async function() {
                 try {
                     const resp = await fetch('/config.json', { method: 'HEAD', cache: 'no-store' });
@@ -33,14 +30,12 @@ export default function HelperScript({ isDark }: { isDark?: boolean | null }): C
                     console.error('Check Build ID Script Error:', e);
                 }
       })();`}
-        </Script>
+        </script>
 
-        <Script
+        <script
             id="intl-app-state-checker"
-            crossOrigin="anonymous"
-            strategy="beforeInteractive"
         >
-            {`(async function() {
+            {`(function() {
                 try {
                     /**
                      * Efficiently retrieves a cookie value by its name.
@@ -80,16 +75,17 @@ export default function HelperScript({ isDark }: { isDark?: boolean | null }): C
                         const newPath = \`/\${locale}\${pathname === '/' ? '' : pathname}\${search}\${hash}\`;
                         // Redirecting will stop further script execution on this page.
                         window.location.href = newPath;
-                    } else if(${isDark != undefined}){
-                        if(${isDark === null}){
+                    } else {
+                        const isDark = getCookie('${isDarkCookieKey}');
+                        if(isDark===null){
                             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                             setTheme(prefersDark);
                             document.cookie = '${isDarkCookieKey}=' +
                                                 prefersDark +
                                                 '; path=/; max-age=31536000; SameSite=Lax;'
-                                                ${process.env.NODE_ENV !== 'production' ? '+ " Secure;"' : ''};
+                                                ${secureCookieAttribute};
                         }else{
-                            syncTheme();
+                            setTheme(isDark==='true');
                         }
                         // 3. Set up listeners for client-side navigation (only if not redirecting).
                         
@@ -114,7 +110,7 @@ export default function HelperScript({ isDark }: { isDark?: boolean | null }): C
                     console.error('App State check Script Error:', e);
                 }
       })();`}
-        </Script>
+        </script>
         <ClientHelperScript />
     </>;
 }

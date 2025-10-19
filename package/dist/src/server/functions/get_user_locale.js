@@ -1,7 +1,9 @@
+import { cache } from "react";
 import config from "../../config/intl_config";
 import { localesSet } from "../../config/middleware";
+export const languageDetecotr = cache(languageDetecotrImpl);
 // Helper function to determine the best matching locale from the Accept-Language header
-export default function languageDetecotr(acceptLanguageHeader) {
+function languageDetecotrImpl(acceptLanguageHeader) {
     try {
         if (!acceptLanguageHeader) {
             return config.defaultLocale;
@@ -26,7 +28,7 @@ export default function languageDetecotr(acceptLanguageHeader) {
         return localeValue ? localeValue.locale : config.defaultLocale;
     }
     catch (e) {
-        console.error(`Language Detect Error: acceptLanguageHeader: ${acceptLanguageHeader}`, e);
+        console.error(`Language Detect Error: acceptLanguageHeader: ${acceptLanguageHeader}, Error: ${e}`);
         return config.defaultLocale;
     }
 }

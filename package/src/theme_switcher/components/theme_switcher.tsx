@@ -4,7 +4,6 @@ import ThemeSwticherButton from "./theme_switcher_button";
 
 export default function ThemeSwticher(params: {
     className?: string;
-    isDark?: boolean;
     lightLabelText: string;
     darkLabelText: string;
 }): Component {
