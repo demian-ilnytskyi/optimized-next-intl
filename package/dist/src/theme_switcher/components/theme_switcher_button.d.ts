@@ -1,6 +1,5 @@
-export default function ThemeSwticherButton({ isDark, className, lightLabelText, darkLabelText, children, }: {
+export default function ThemeSwticherButton({ className, lightLabelText, darkLabelText, children, }: {
     className?: string;
-    isDark?: boolean;
     lightLabelText: string;
     darkLabelText: string;
     children: React.ReactNode;

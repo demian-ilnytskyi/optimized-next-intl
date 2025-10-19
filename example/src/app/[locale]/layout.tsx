@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import metadataHelper from "@/shared/helpers/metadata_helper";
 import { getTranslations, IntlHelperScript } from "optimized-next-intl";
 import { IntlProvider } from "optimized-next-intl";
-import { getLayoutStates } from "optimized-next-intl";
+import KTextConstants from "@/shared/constants/variables/text_constants";
 
 
 export async function generateMetadata({ params }: {
@@ -28,23 +28,31 @@ export async function generateMetadata({ params }: {
   }
 };
 
+export function generateStaticParams(): { locale: Language }[] {
+  const locales = KTextConstants.locales.map((locale) => ({ locale }));
+  return locales;
+}
+
 export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: Language }>;
 }>): Promise<Component> {
-  const { locale, isDark, htmlParam } = await getLayoutStates();
+  const result = await params;
+  const locale = result?.locale ?? KTextConstants.defaultLocale;
 
-  return <html  {...htmlParam} >
-    <head>
+  return <html lang={locale} suppressHydrationWarning>
+    <head lang={locale}>
       <meta httpEquiv="Content-Language" content={locale} />
-      <IntlHelperScript isDark={isDark} />
+      <IntlHelperScript />
     </head>
-    <body
+    <body lang={locale}
       className={cn(`bg-white dark:bg-gray-900`)}>
       <IntlProvider language={locale} >
         <div className="flex flex-col min-h-screen mx-4 lg:mx-24 tablet:mx-8 self-center ease-out">
-          <NavigationBar isDark={isDark ?? undefined} />
+          <NavigationBar />
           {children}
         </div>
       </IntlProvider>

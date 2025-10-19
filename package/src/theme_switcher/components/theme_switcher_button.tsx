@@ -6,25 +6,21 @@ import setCookie from "../../client/functions/set_cookie";
 
 
 export default function ThemeSwticherButton({
-    isDark,
     className,
     lightLabelText,
     darkLabelText,
     children,
 }: {
     className?: string;
-    isDark?: boolean;
     lightLabelText: string;
     darkLabelText: string;
     children: React.ReactNode,
 }): Component {
-    const [isDarkMode, setDarkMode] = useState(isDark ?? false);
+    const [isDarkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
-        if (isDark === undefined) {
-            setDarkMode(document.documentElement.classList.contains('dark'));
-        }
-    }, [isDark]);
+        setDarkMode(document.documentElement.classList.contains('dark'));
+    }, []);
 
     function changeTheme() {
         const isDark = document.documentElement.classList.contains('dark');

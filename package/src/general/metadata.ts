@@ -1,6 +1,7 @@
+import { cache } from "react";
 import config from "../config/intl_config";
 
-export function alternatesLinks({ locale, url, canonical, linkPart }: {
+export function iAlternatesLinks({ locale, url, canonical, linkPart }: {
     url: string,
     locale: string,
     linkPart?: string,
@@ -13,12 +14,14 @@ export function alternatesLinks({ locale, url, canonical, linkPart }: {
             languages: languages(url, linkPartValue),
         };
     } catch (e) {
-        console.error(`Language Helper error for Metadata, link: ${url}, linkPart: ${linkPart}`, e);
+        console.error(`Language Helper error for Metadata, link: ${url}, linkPart: ${linkPart}, Error: ${e}`);
         return undefined;
     }
 }
 
-export function languages(url: string, linkPart?: string): Record<string, string> {
+export const alternatesLinks = cache(iAlternatesLinks);
+
+function iLanguages(url: string, linkPart?: string): Record<string, string> {
     return config.locales.reduce(
         (acc: Record<string, string>, locale: string) => {
             const localeValue = locale === config.defaultLocale ? '' : `/${locale}`;
@@ -28,3 +31,5 @@ export function languages(url: string, linkPart?: string): Record<string, string
         { 'x-default': url + (linkPart ?? '') }
     );
 }
+
+export const languages = cache(iLanguages);

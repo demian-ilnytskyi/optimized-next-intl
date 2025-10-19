@@ -1,9 +1,10 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import languageDetecotr from '../server/functions/get_user_locale';
+import { languageDetecotr } from '../server/functions/get_user_locale';
 import type { CookieAttributes } from '../types/types';
 import config from './intl_config';
 import { isBotCookieKey, localeCookieName } from './cookie_key';
+import { cache } from 'react';
 
 const sameSite: true | false | "lax" | "strict" | "none" | undefined = false;
 
@@ -21,6 +22,8 @@ async function getIsBotValue(userAgent: string | null): Promise<boolean> {
     return isBot(userAgent ?? '');
 }
 
+const getIsBotValueCache = cache(getIsBotValue);
+
 export const localesSet = new Set(config.locales);
 
 // This middleware function runs for every incoming request
@@ -37,7 +40,7 @@ export default async function intlMiddleware(request: NextRequest): Promise<Next
             initialChosenLocale = existingLocaleCookie;
         } else {
             const userAgent = request.headers.get('user-agent');
-            isSEOBot = await getIsBotValue(userAgent);
+            isSEOBot = await getIsBotValueCache(userAgent);
             initialChosenLocale = isSEOBot ? config.defaultLocale : languageDetecotr(
                 request.headers.get('accept-language'),
             );
@@ -100,7 +103,7 @@ export default async function intlMiddleware(request: NextRequest): Promise<Next
 
         return response;
     } catch (e) {
-        console.error('Middleware Error ', e);
+        console.error(`Middleware Error ${e}`);
         return NextResponse.next({
             request,
         });
