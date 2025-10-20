@@ -20,7 +20,9 @@ function ClientLocaleLinkComponent({ locale, className, ...rest }, ref) {
     const newPathname = pathname === '/' && (localePrefix) ? '' : pathname;
     const href = `${localePrefix}${newPathname}${search ? `?${search}` : ''}${hash}`;
     function handleNavigate(e) {
+        e.preventDefault();
         setCookie({ name: localeCookieName, value: locale });
+        window.location.replace(href);
     }
     ;
     return _jsx("a", { ref: ref, hrefLang: locale, className: className, ...rest, href: href, onClick: handleNavigate });

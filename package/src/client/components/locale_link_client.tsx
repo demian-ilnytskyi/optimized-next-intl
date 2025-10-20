@@ -40,7 +40,9 @@ function ClientLocaleLinkComponent(
     const href = `${localePrefix}${newPathname}${search ? `?${search}` : ''}${hash}`;
 
     function handleNavigate(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+        e.preventDefault();
         setCookie({ name: localeCookieName, value: locale });
+        window.location.replace(href);
     };
 
     return <a
