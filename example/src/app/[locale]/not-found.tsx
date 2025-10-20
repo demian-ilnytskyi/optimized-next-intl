@@ -29,7 +29,7 @@ export default async function NotFound({ params }: {
 }): Promise<Component> {
   const result = await params;
   const locale = result?.locale ?? KTextConstants.defaultLocale;
-  await setLocale(locale);
+  setLocale(locale);
   const t = await getTranslations('NotFound.General');
   return <main className="flex-1 flex flex-col items-center justify-center p-4 text-center">
     <h1 className={cn(AppTextStyle.h1Tablet, 'font-bold not-small-mobile:text-4xl')}>
