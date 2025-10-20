@@ -2,15 +2,13 @@ import { cn } from "@/lib/utils";
 import AppTextStyle from "@/shared/constants/styles/app_text_styles";
 import type { Metadata } from "next";
 import metadataHelper from "@/shared/helpers/metadata_helper";
-import { getLocale, getTranslations } from "optimized-next-intl";
+import { getTranslations } from "optimized-next-intl";
 import Link from "optimized-next-intl/Link";
-import RootLayout from "./[locale]/layout";
 
-// Generate this page dynamic because we get language from cookie
-export const dynamic = 'force-dynamic';
-
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale() as Language;
+export async function generateMetadata({ params }: {
+  params: Promise<{ locale: Language }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations('NotFound.Metadata.General', locale);
   return {
     ...metadataHelper({
@@ -26,13 +24,6 @@ export async function generateMetadata(): Promise<Metadata> {
 };
 
 export default async function NotFound(): Promise<Component> {
-  const locale = await getLocale() as Language;
-  return <RootLayout params={Promise.resolve({ locale })}>
-    <PageContent />
-  </RootLayout>;
-}
-
-async function PageContent(): Promise<Component> {
   const t = await getTranslations('NotFound.General');
   return <main className="flex-1 flex flex-col items-center justify-center p-4 text-center">
     <h1 className={cn(AppTextStyle.h1Tablet, 'font-bold not-small-mobile:text-4xl')}>

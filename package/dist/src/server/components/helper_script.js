@@ -7,7 +7,7 @@ export default function HelperScript() {
     // if (process.env.NODE_ENV === "development") return null;
     return _jsxs(_Fragment, { children: [_jsx("script", { id: "build-id-script", children: `(async function() {
                 try {
-                    const resp = await fetch('/config.json', { method: 'HEAD', cache: 'no-store' });
+                    const resp = await fetch('/BUILD_ID', { method: 'HEAD', cache: 'no-store' });
                     if (resp.ok) {
                         const BUILD_ID = resp.headers.get('ETag')?.replace(/W\\/|"/g, '');
                         if(!BUILD_ID) return;

@@ -1,7 +1,5 @@
 import { getTranslations, setLocaleAsync } from "optimized-next-intl";
 
-export const dynamic = 'force-dynamic';
-
 // Example if not use setLocale or setLocaleAsync
 export default async function Home({ params }: {
     params: Promise<{ locale: Language }>;

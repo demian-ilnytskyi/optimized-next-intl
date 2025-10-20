@@ -11,7 +11,7 @@ export default function HelperScript(): Component | null {
             id="build-id-script">
             {`(async function() {
                 try {
-                    const resp = await fetch('/config.json', { method: 'HEAD', cache: 'no-store' });
+                    const resp = await fetch('/BUILD_ID', { method: 'HEAD', cache: 'no-store' });
                     if (resp.ok) {
                         const BUILD_ID = resp.headers.get('ETag')?.replace(/W\\/|"/g, '');
                         if(!BUILD_ID) return;

@@ -30,24 +30,22 @@ export async function generateMetadata({ params }: {
 
 export const generateStaticParams = getLocaleStaticParams;
 
-export const dynamicParams = false;
-
 export default async function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: Language }>;
+  params: Promise<{ locale: string }>;
 }>): Promise<Component> {
   const result = await params;
   const locale = result?.locale ?? KTextConstants.defaultLocale;
 
   return <html lang={locale} suppressHydrationWarning>
-    <head lang={locale}>
+    <head >
       <meta httpEquiv="Content-Language" content={locale} />
       <IntlHelperScript />
     </head>
-    <body lang={locale}
+    <body
       className={cn(`bg-white dark:bg-gray-900`)}>
       <IntlProvider language={locale} >
         <div className="flex flex-col min-h-screen mx-4 lg:mx-24 tablet:mx-8 self-center ease-out">

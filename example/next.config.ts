@@ -5,13 +5,15 @@ import KTextConstants from "./src/shared/constants/variables/text_constants";
 
 const isDev = process.env.NODE_ENV === "development";
 
+initOpenNextCloudflareForDev();
+
 /**
  * Generates a Cache-Control header value.
  * @param seconds The maximum age for the cache in seconds.
  * @returns A Cache-Control header string.
  */
 function cacheHeader(seconds: number) {
-    return isDev ? 'no-store' : `public, max-age=${seconds}, must-revalidate, stale-while-revalidate=120, stale-if-error=86400`;
+    return isDev ? 'no-store' : `no-store, public, max-age=${seconds}, must-revalidate, stale-while-revalidate=120, stale-if-error=86400`;
 }
 
 const nextConfig: NextConfig = {
@@ -191,5 +193,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
-initOpenNextCloudflareForDev();
