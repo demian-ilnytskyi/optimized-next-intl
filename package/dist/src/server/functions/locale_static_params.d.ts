@@ -1,3 +1,3 @@
-export declare function getLocaleStaticParams(): {
+export declare const getLocaleStaticParams: {
     locale: string;
 }[];
