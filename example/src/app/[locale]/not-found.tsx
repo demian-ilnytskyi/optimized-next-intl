@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import AppTextStyle from "@/shared/constants/styles/app_text_styles";
 import type { Metadata } from "next";
 import metadataHelper from "@/shared/helpers/metadata_helper";
-import { getTranslations } from "optimized-next-intl";
+import { getTranslations, setLocaleAsync } from "optimized-next-intl";
 import Link from "optimized-next-intl/Link";
 
 export async function generateMetadata({ params }: {
@@ -23,7 +23,10 @@ export async function generateMetadata({ params }: {
   };
 };
 
-export default async function NotFound(): Promise<Component> {
+export default async function NotFound({ params }: {
+  params: Promise<{ locale: Language }>;
+}): Promise<Component> {
+  await setLocaleAsync(params);
   const t = await getTranslations('NotFound.General');
   return <main className="flex-1 flex flex-col items-center justify-center p-4 text-center">
     <h1 className={cn(AppTextStyle.h1Tablet, 'font-bold not-small-mobile:text-4xl')}>
