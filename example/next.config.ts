@@ -13,7 +13,7 @@ initOpenNextCloudflareForDev();
  * @returns A Cache-Control header string.
  */
 function cacheHeader(seconds: number) {
-    return isDev ? 'no-store' : `no-store, public, max-age=${seconds}, must-revalidate, stale-while-revalidate=120, stale-if-error=86400`;
+    return isDev ? 'no-store' : `public, max-age=${seconds}, must-revalidate, stale-while-revalidate=120, stale-if-error=86400`;
 }
 
 const nextConfig: NextConfig = {
