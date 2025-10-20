@@ -2,14 +2,17 @@ import { isDarkCookieKey, localeCookieName } from "../../config/cookie_key";
 import config from "../../config/intl_config";
 import ClientHelperScript from "../../client/components/client_helper_script";
 
-const secureCookieAttribute = process.env.NODE_ENV !== 'production' ? '+ " Secure;"' : '';
+const isDev = process.env.NODE_ENV === 'development';
+
+const secureCookieAttribute = isDev ? '+ " Secure;"' : '';
 
 export default function HelperScript(): Component | null {
-    // if (process.env.NODE_ENV === "development") return null;
+
     return <>
-        <script
-            id="build-id-script">
-            {`(async function() {
+        {!isDev &&
+            <script
+                id="build-id-script">
+                {`(async function() {
                 try {
                     const resp = await fetch('/BUILD_ID', { method: 'HEAD', cache: 'no-store' });
                     if (resp.ok) {
@@ -30,7 +33,7 @@ export default function HelperScript(): Component | null {
                     console.error('Check Build ID Script Error:', e);
                 }
       })();`}
-        </script>
+            </script>}
 
         <script
             id="intl-app-state-checker"

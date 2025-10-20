@@ -5,8 +5,6 @@ import type { TranslationObject, TranslatorReturnType } from "../../types/types"
 import { getLocaleCache, getMessageCache, setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
 import { cache } from "react";
 
-const isDev = process.env.NODE_ENV === 'development';
-
 /**
  * Loads and caches messages for a specific locale using dynamic import.
  * Prevents redundant file loads and handles import errors gracefully.
@@ -30,7 +28,7 @@ async function iGetMessage(locale: string): Promise<TranslationObject> {
     }
 }
 
-export const getMessage = isDev ? iGetMessage : cache(iGetMessage);
+export const getMessage = cache(iGetMessage);
 
 /**
  * Retrieves a translation function for a specific namespace and locale.
@@ -55,7 +53,7 @@ async function iGetTranslations(namespace: string, locale?: string): Promise<Tra
     return getTranslationsImpl(effectiveLocale, serverMessages, namespace, cacheKey);
 }
 
-export const getTranslations = isDev ? iGetTranslations : cache(iGetTranslations);
+export const getTranslations = cache(iGetTranslations);
 
 /**
  * Determines the current locale. It first checks for an explicitly set locale,
@@ -87,4 +85,4 @@ async function iGetLocale(): Promise<string> {
     }
 }
 
-export const getLocale = isDev ? iGetLocale : cache(iGetLocale);
+export const getLocale = cache(iGetLocale);
