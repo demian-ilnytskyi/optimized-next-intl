@@ -3,6 +3,7 @@ import config from "../../config/intl_config";
 import { localeCookieName } from "../../config/cookie_key";
 import { getLocaleCache, getMessageCache, setLocaleCache, setMessageForLocaleCache } from "../../general/cache_variables";
 import { cache } from "react";
+import { localesSet } from "../../config/middleware";
 /**
  * Loads and caches messages for a specific locale using dynamic import.
  * Prevents redundant file loads and handles import errors gracefully.
@@ -22,6 +23,11 @@ async function iGetMessage(locale) {
             setMessageForLocaleCache(locale, messages);
         }
         catch {
+            if (!localesSet.has(locale)) {
+                const { notFound } = await import("next/navigation");
+                notFound();
+                return {};
+            }
             throw Error(`Please set localization file and set path to it in next.config as in the example and add json filed ${locale}.json with translations`);
         }
         return getMessageCache(locale); // Assert non-null because it's guaranteed to be in the map
