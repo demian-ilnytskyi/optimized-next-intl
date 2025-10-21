@@ -5,9 +5,7 @@ import RootLayout from "./[locale]/layout";
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params }: {
-  params: Promise<{ locale: Language }>;
-}): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale() as Language;
   return notFoundGenerateMetadata({ params: Promise.resolve({ locale }) });
 };
