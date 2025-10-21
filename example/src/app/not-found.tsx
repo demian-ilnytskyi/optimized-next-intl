@@ -3,8 +3,6 @@ import NotFound, { generateMetadata as notFoundGenerateMetadata } from "./[local
 import RootLayout from "./[locale]/layout";
 import KTextConstants from "@/shared/constants/variables/text_constants";
 
-export const dynamic = 'force-dynamic';
-
 export async function generateMetadata(): Promise<Metadata> {
   const locale = KTextConstants.defaultLocale;
   return notFoundGenerateMetadata({ params: Promise.resolve({ locale }) });
